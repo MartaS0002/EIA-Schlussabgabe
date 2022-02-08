@@ -1,46 +1,46 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
-text-align: center;
+  text-align: center;
 }
 
 .settings {
-    position: relative;
-    width: 80%;
-    left: 10%;
-    height: 500px;
-    background-color: rgb(158, 158, 158);
-    border-style: solid;
-    border-radius: 4px;
+  position: relative;
+  width: 80%;
+  left: 10%;
+  height: 500px;
+  background-color: rgb(158, 158, 158);
+  border-style: solid;
+  border-radius: 4px;
 }
 
 .settings h2 {
-    position: relative;
-    color: white;
-    text-align: center;
-    /* top: 5%; */
-    margin-bottom: 50px;
+  position: relative;
+  color: white;
+  text-align: center;
+  /* top: 5%; */
+  margin-bottom: 50px;
 }
 
 form {
-    color: white;
-    text-align: center;
-    position: relative;
+  color: white;
+  text-align: center;
+  position: relative;
 }
 
 form input {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 canvas {
-    position: relative;
-    margin-top: 50px;
-    background-color: rgb(158, 158, 158);
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    border-style: solid;
-    border-radius: 4px;
+  position: relative;
+  margin-top: 50px;
+  background-color: rgb(158, 158, 158);
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border-style: solid;
+  border-radius: 4px;
 }
