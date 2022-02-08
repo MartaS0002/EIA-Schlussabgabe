@@ -5,8 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Döner-Trainer</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    
+    <h1>Welcome to Döner-Trainer</h1>
+    <div class="settings">
+        <h2>Döner-Settings</h2>
+        <form>
+            Anzahl der Mitarbeiter
+            <input id="myNumber" name="numberWorkers" type="number" step="1" min="1" max="10" placeholder="0">
+            <br>
+            Kunden im Durchschnitt
+            <input id="myNumber" name="myNumber" type="number" step="1" min="1" max="10" placeholder="0">
+            <br>
+            Kapazitäten von Rohmateriallager
+            <input type="range" name="maxSprint" min="1" max="10" value="1" step="1" />
+            <br>
+            Kapazitäten von Behältnissen
+            <input type="range" name="maxSprint" min="1" max="10" value="1" step="1" />
+            <br>
+            Leerlauf
+            <input type="range" name="maxSprint" min="1" max="10" value="1" step="1" />
+            <br>
+            <button type="button">Start</button>
+        </form>
+    </div>
+    <canvas width=1000 height=610></canvas>
 </body>
 </html>
