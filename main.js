@@ -86,4 +86,7 @@ var doenerTrainer;
         console.log("x! " + closestWorker.position.x + "y! " + closestWorker.position.y);
     }
 })(doenerTrainer || (doenerTrainer = {}));
+// bread_doener bread_lahmacun bread_pita
+// customer_happy customer_mad customer_neutral
+// ingredient_cheese  ingredient_chili ingredient_mushrooms ingredient_onion ingredient_tomato
 //# sourceMappingURL=main.js.map
