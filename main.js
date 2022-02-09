@@ -19,7 +19,7 @@ var doenerTrainer;
         button[1].addEventListener("click", refreshPage); // button click -> refreshPage
         drawBackground();
         imgData = doenerTrainer.crc2.getImageData(0, 0, doenerTrainer.crc2.canvas.width, doenerTrainer.crc2.canvas.height);
-        // canvas.addEventListener("click", canvasClicked); -> clicking on workers???
+        canvas.addEventListener("click", canvasClicked);
         window.setInterval(update, 20);
     }
     function drawBackground() {
@@ -65,6 +65,25 @@ var doenerTrainer;
             moveable.move(1 / 50);
             moveable.draw();
         }
+    }
+    function canvasClicked(_event) {
+        let closestWorker = moveables[0];
+        let x = _event.offsetX;
+        let y = _event.offsetY;
+        let distanceVektorClosestWorker = 10000;
+        console.log(x + "x " + y + " y");
+        for (let item of moveables) {
+            let distance = new doenerTrainer.Vector(0, 0);
+            distance.x = x - item.position.x;
+            distance.y = y - item.position.y;
+            let distanceVektor = Math.sqrt(Math.pow(distance.x, 2) + Math.pow(distance.y, 2));
+            if (distanceVektor < distanceVektorClosestWorker) {
+                closestWorker = item;
+                distanceVektorClosestWorker = distanceVektor;
+            }
+        }
+        closestWorker.velocity = new doenerTrainer.Vector(0, 0);
+        console.log("x! " + closestWorker.position.x + "y! " + closestWorker.position.y);
     }
 })(doenerTrainer || (doenerTrainer = {}));
 //# sourceMappingURL=main.js.map

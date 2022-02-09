@@ -25,7 +25,7 @@ namespace doenerTrainer {
     drawBackground();
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-    // canvas.addEventListener("click", canvasClicked); -> clicking on workers???
+    canvas.addEventListener("click", canvasClicked);
 
     window.setInterval(update, 20);
   }
@@ -76,5 +76,32 @@ namespace doenerTrainer {
       moveable.move(1 / 50);
       moveable.draw();
     }
+  }
+
+  function canvasClicked(_event: MouseEvent): void {
+    let closestWorker: workers = moveables[0];
+    let x: number = _event.offsetX;
+    let y: number = _event.offsetY;
+    let distanceVektorClosestWorker: number = 10000;
+
+    console.log(x + "x " + y + " y");
+    for (let item of moveables) {
+      let distance: Vector = new Vector(0, 0);
+      distance.x = x - item.position.x;
+      distance.y = y - item.position.y;
+
+      let distanceVektor: number = Math.sqrt(
+        Math.pow(distance.x, 2) + Math.pow(distance.y, 2)
+      );
+
+      if (distanceVektor < distanceVektorClosestWorker) {
+        closestWorker = item;
+        distanceVektorClosestWorker = distanceVektor;
+      }
+    }
+    closestWorker.velocity = new Vector(0, 0);
+    console.log(
+      "x! " + closestWorker.position.x + "y! " + closestWorker.position.y
+    );
   }
 }
