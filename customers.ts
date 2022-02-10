@@ -1,9 +1,23 @@
 namespace doenerTrainer {
+    interface preferences {
+        cheese: boolean;
+        chili: boolean;
+        mushrooms: boolean;
+        onion: boolean;
+        tomato: boolean;
+    }
 
     export class customers extends Moveable {
         position: Vector;
         mood: string = "happy";
- 
+        preferences: preferences = {
+            cheese: (Math.random() < 0.5),
+            chili: (Math.random() < 0.5),
+            mushrooms: (Math.random() < 0.5),
+            onion: (Math.random() < 0.5),
+            tomato: (Math.random() < 0.5)
+        }
+
         constructor(_position: Vector) {
             super(_position);
             if (_position) this.position = _position;
@@ -15,11 +29,11 @@ namespace doenerTrainer {
             let image: any = document.getElementById("happy");
             if (this.mood === "happy") {
                 image = document.getElementById("happy");
-            // } else if (this.mood === "neutral") {
-            //     image = document.getElementById("neutral");
+            } else if (this.mood === "neutral") {
+                image = document.getElementById("neutral");
 
-            // } else if (this.mood === "mad") {
-            //     image = document.getElementById("mad");
+            } else if (this.mood === "mad") {
+                image = document.getElementById("mad");
 
             }
 

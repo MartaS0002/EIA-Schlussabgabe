@@ -5,6 +5,13 @@ var doenerTrainer;
         constructor(_position) {
             super(_position);
             this.mood = "happy";
+            this.preferences = {
+                cheese: (Math.random() < 0.5),
+                chili: (Math.random() < 0.5),
+                mushrooms: (Math.random() < 0.5),
+                onion: (Math.random() < 0.5),
+                tomato: (Math.random() < 0.5)
+            };
             if (_position)
                 this.position = _position;
             else
@@ -15,10 +22,12 @@ var doenerTrainer;
             let image = document.getElementById("happy");
             if (this.mood === "happy") {
                 image = document.getElementById("happy");
-                // } else if (this.mood === "neutral") {
-                //     image = document.getElementById("neutral");
-                // } else if (this.mood === "mad") {
-                //     image = document.getElementById("mad");
+            }
+            else if (this.mood === "neutral") {
+                image = document.getElementById("neutral");
+            }
+            else if (this.mood === "mad") {
+                image = document.getElementById("mad");
             }
             doenerTrainer.crc2.drawImage(image, this.position.x, this.position.y, 70, 70);
         }

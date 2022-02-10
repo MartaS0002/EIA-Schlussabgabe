@@ -3,7 +3,6 @@ var doenerTrainer;
 (function (doenerTrainer) {
     window.addEventListener("load", handleLoad);
     let imgData;
-    let moveables = [];
     let moveablesWorker = [];
     let moveablesCustomer = [];
     let customer;
@@ -21,7 +20,7 @@ var doenerTrainer;
         button[0].addEventListener("click", start); // button click -> start simulation
         button[1].addEventListener("click", refreshPage); // button click -> refreshPage
         drawBackground();
-        // -----
+        drawIngredients();
         let startButton = document.getElementById("start");
         if (numberWorkers === 0) {
             startButton.disabled = true;
@@ -33,6 +32,19 @@ var doenerTrainer;
     function drawBackground() {
         let backgroundClass = new doenerTrainer.canvasBackground();
         backgroundClass.drawBackground();
+    }
+    function drawIngredients() {
+        let imageCheese = document.getElementById("ingredientCheese");
+        doenerTrainer.crc2.drawImage(imageCheese, 70, 435, 50, 50);
+        imageCheese.addEventListener("click", clickOnCheese);
+        let imageChili = document.getElementById("ingredientChili");
+        doenerTrainer.crc2.drawImage(imageChili, 150, 435, 50, 50);
+        let imageMushroom = document.getElementById("ingredientMushroom");
+        doenerTrainer.crc2.drawImage(imageMushroom, 230, 435, 50, 50);
+        let imageOnion = document.getElementById("ingredientOnion");
+        doenerTrainer.crc2.drawImage(imageOnion, 310, 435, 50, 50);
+        let imageTomato = document.getElementById("ingredientTomato");
+        doenerTrainer.crc2.drawImage(imageTomato, 390, 435, 50, 50);
     }
     function handleChange(_event) {
         let startButton = document.getElementById("start");
@@ -64,10 +76,10 @@ var doenerTrainer;
     }
     function callWorker() {
         let randomX = Math.floor(Math.random() * 600) + 50;
-        let randomY = Math.floor(Math.random() * 250) + 170;
+        let randomY = Math.floor(Math.random() * 230) + 170;
         let workerClass = new doenerTrainer.workers(new doenerTrainer.Vector(randomX, randomY));
         workerClass.draw();
-        moveables.push(workerClass);
+        moveablesWorker.push(workerClass);
     }
     function update() {
         doenerTrainer.crc2.putImageData(imgData, 0, 0);
@@ -81,12 +93,12 @@ var doenerTrainer;
         }
     }
     // function canvasClicked(_event: MouseEvent): void {
-    //   let closestWorker: workers = moveables[0];
+    //   let closestWorker: workers = moveablesWorker[0];
     //   let x: number = _event.offsetX;
     //   let y: number = _event.offsetY;
     //   let distanceVektorClosestWorker: number = 10000;
     //   console.log(x + "x " + y + " y");
-    //   for (let item of moveables) {
+    //   for (let item of moveablesWorker) {
     //     let distance: Vector = new Vector(0, 0);
     //     distance.x = x - item.position.x;
     //     distance.y = y - item.position.y;
@@ -106,19 +118,65 @@ var doenerTrainer;
     function callCustomers() {
         let customerClass = new doenerTrainer.customers(new doenerTrainer.Vector(0, 515));
         customerClass.draw();
+        // console.log(customerClass.preferences);
         moveablesCustomer.push(customerClass);
         customer = customerClass;
     }
-    let bread = ["pics/bread_doener.png", "pics/bread_pita.png", "pics/bread_lahmacun.png"];
-    let randomBread = Math.floor(Math.random() * bread.length);
-    console.log(randomBread);
-    let orderDiv = document.getElementById("order");
-    let imageBread = document.createElement("img");
-    imageBread.setAttribute("src", bread[randomBread]);
-    imageBread.setAttribute("id", "Bread");
-    orderDiv.appendChild(imageBread);
+    function callOrder() {
+        let preferenceTrue = [];
+        let preferenceFalse = [];
+        if (customer.preferences.cheese === true) {
+            preferenceTrue.push("Cheese");
+        }
+        else {
+            preferenceFalse.push("Cheese");
+        }
+        if (customer.preferences.chili === true) {
+            preferenceTrue.push("Chili");
+        }
+        else {
+            preferenceFalse.push("Chili");
+        }
+        if (customer.preferences.mushrooms === true) {
+            preferenceTrue.push("Mushrooms");
+        }
+        else {
+            preferenceFalse.push("Mushrooms");
+        }
+        if (customer.preferences.onion === true) {
+            preferenceTrue.push("Onion");
+        }
+        else {
+            preferenceFalse.push("Onion");
+        }
+        if (customer.preferences.tomato === true) {
+            preferenceTrue.push("Tomato");
+        }
+        else {
+            preferenceFalse.push("Tomato");
+        }
+        let bread = ["pics/bread_doener.png", "pics/bread_pita.png", "pics/bread_lahmacun.png"];
+        let randomBread = Math.floor(Math.random() * bread.length);
+        console.log(randomBread);
+        let orderDiv = document.getElementById("order");
+        let ichWill = document.getElementById("ichWill");
+        let ichWillNicht = document.getElementById("ichWillNicht");
+        ichWill.innerHTML = "Ich will: " + preferenceTrue;
+        ichWillNicht.innerHTML = "Ich will nicht: " + preferenceFalse;
+        orderDiv.appendChild(ichWill);
+        orderDiv.appendChild(ichWillNicht);
+        let imageBread = document.createElement("img");
+        imageBread.setAttribute("src", bread[randomBread]);
+        imageBread.setAttribute("id", "Bread");
+        orderDiv.appendChild(imageBread);
+    }
+    doenerTrainer.callOrder = callOrder;
+    function clickOnCheese() {
+        console.log("cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese");
+        let imageBread = document.getElementById("Bread");
+        let img = document.createElement("img");
+        img.setAttribute("src", "pic/ingredient_cheese.png");
+        imageBread.appendChild(img);
+    }
 })(doenerTrainer || (doenerTrainer = {}));
-// bread_doener bread_lahmacun bread_pita
-// customer_happy customer_mad customer_neutral
-// ingredient_cheese  ingredient_chili ingredient_mushrooms ingredient_onion ingredient_tomato
 //# sourceMappingURL=main.js.map

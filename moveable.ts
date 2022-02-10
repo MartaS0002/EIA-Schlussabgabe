@@ -29,8 +29,14 @@ namespace doenerTrainer {
       if (this.position.x < 0) {
         this.velocity.scale(-1);
       }
-      if (this.position.x > 570) {
+      if (this.position.x > 600) {
+
         this.velocity = Vector.getRandom(0, 0);
+        if (this.angekommen === false) {
+          callOrder();
+        } else {
+
+        }
         this.angekommen = true;
       }
     }

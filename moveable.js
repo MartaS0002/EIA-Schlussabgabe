@@ -29,8 +29,13 @@ var doenerTrainer;
             if (this.position.x < 0) {
                 this.velocity.scale(-1);
             }
-            if (this.position.x > 570) {
+            if (this.position.x > 600) {
                 this.velocity = doenerTrainer.Vector.getRandom(0, 0);
+                if (this.angekommen === false) {
+                    doenerTrainer.callOrder();
+                }
+                else {
+                }
                 this.angekommen = true;
             }
         }

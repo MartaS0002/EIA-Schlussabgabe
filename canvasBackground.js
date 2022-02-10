@@ -3,31 +3,31 @@ var doenerTrainer;
 (function (doenerTrainer) {
     class canvasBackground {
         drawBackground() {
-            // line right vertical
-            doenerTrainer.crc2.beginPath();
-            doenerTrainer.crc2.moveTo(doenerTrainer.crc2.canvas.width - 300, 0);
-            doenerTrainer.crc2.lineTo(doenerTrainer.crc2.canvas.width - 300, doenerTrainer.crc2.canvas.height);
-            doenerTrainer.crc2.strokeStyle = "white";
-            doenerTrainer.crc2.stroke();
-            doenerTrainer.crc2.closePath();
+            // // line right vertical
+            // crc2.beginPath();
+            // crc2.moveTo(crc2.canvas.width - 300, 0);
+            // crc2.lineTo(crc2.canvas.width - 300, crc2.canvas.height);
+            // crc2.strokeStyle = "white";
+            // crc2.stroke();
+            // crc2.closePath();
             // line above horizontal
             doenerTrainer.crc2.beginPath();
             doenerTrainer.crc2.moveTo(0, 150);
-            doenerTrainer.crc2.lineTo(doenerTrainer.crc2.canvas.width - 300, 150);
+            doenerTrainer.crc2.lineTo(doenerTrainer.crc2.canvas.width, 150);
             doenerTrainer.crc2.strokeStyle = "white";
             doenerTrainer.crc2.stroke();
             doenerTrainer.crc2.closePath();
             // line below horizontal
             doenerTrainer.crc2.beginPath();
             doenerTrainer.crc2.moveTo(0, doenerTrainer.crc2.canvas.height - 150);
-            doenerTrainer.crc2.lineTo(doenerTrainer.crc2.canvas.width - 300, doenerTrainer.crc2.canvas.height - 150);
+            doenerTrainer.crc2.lineTo(doenerTrainer.crc2.canvas.width, doenerTrainer.crc2.canvas.height - 150);
             doenerTrainer.crc2.strokeStyle = "white";
             doenerTrainer.crc2.stroke();
             doenerTrainer.crc2.closePath();
             // counter
             doenerTrainer.crc2.beginPath();
             doenerTrainer.crc2.fillStyle = "gray";
-            doenerTrainer.crc2.fillRect(doenerTrainer.crc2.canvas.width / 2 - 450, doenerTrainer.crc2.canvas.height - 200, 400, 100);
+            doenerTrainer.crc2.fillRect(doenerTrainer.crc2.canvas.width / 2 - 380, doenerTrainer.crc2.canvas.height - 200, 500, 100);
             doenerTrainer.crc2.closePath();
         }
     }

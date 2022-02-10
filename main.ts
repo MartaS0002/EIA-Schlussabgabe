@@ -3,7 +3,6 @@ namespace doenerTrainer {
   let imgData: any;
 
   export let crc2: CanvasRenderingContext2D;
-  let moveables: Moveable[] = [];
   let moveablesWorker: Moveable[] = [];
   let moveablesCustomer: Moveable[] = [];
 
@@ -29,7 +28,7 @@ namespace doenerTrainer {
 
     button[1].addEventListener("click", refreshPage); // button click -> refreshPage
     drawBackground();
-    // -----
+    drawIngredients();
 
     let startButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("start");
 
@@ -49,7 +48,25 @@ namespace doenerTrainer {
     backgroundClass.drawBackground();
   }
 
-   function handleChange(_event: Event): void {
+  function drawIngredients(): void {
+    let imageCheese: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientCheese");
+    crc2.drawImage(imageCheese, 70, 435, 50, 50);
+    imageCheese.addEventListener("click", clickOnCheese);
+
+    let imageChili: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientChili");
+    crc2.drawImage(imageChili, 150, 435, 50, 50);
+
+    let imageMushroom: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientMushroom");
+    crc2.drawImage(imageMushroom, 230, 435, 50, 50);
+
+    let imageOnion: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientOnion");
+    crc2.drawImage(imageOnion, 310, 435, 50, 50);
+
+    let imageTomato: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientTomato");
+    crc2.drawImage(imageTomato, 390, 435, 50, 50);
+  }
+
+  function handleChange(_event: Event): void {
     let startButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("start");
 
     let target: HTMLInputElement = <HTMLInputElement>_event.target;
@@ -67,7 +84,7 @@ namespace doenerTrainer {
 
   function start(): void {
 
-  if (numberWorkers > 10) {
+    if (numberWorkers > 10) {
       numberWorkers = 10;
     }
     if (clickStart === 0) {
@@ -83,10 +100,10 @@ namespace doenerTrainer {
 
   function callWorker(): void {
     let randomX: number = Math.floor(Math.random() * 600) + 50;
-    let randomY: number = Math.floor(Math.random() * 250) + 170;
+    let randomY: number = Math.floor(Math.random() * 230) + 170;
     let workerClass: workers = new workers(new Vector(randomX, randomY));
     workerClass.draw();
-    moveables.push(workerClass);
+    moveablesWorker.push(workerClass);
   }
 
   function update(): void {
@@ -102,13 +119,13 @@ namespace doenerTrainer {
   }
 
   // function canvasClicked(_event: MouseEvent): void {
-  //   let closestWorker: workers = moveables[0];
+  //   let closestWorker: workers = moveablesWorker[0];
   //   let x: number = _event.offsetX;
   //   let y: number = _event.offsetY;
   //   let distanceVektorClosestWorker: number = 10000;
 
   //   console.log(x + "x " + y + " y");
-  //   for (let item of moveables) {
+  //   for (let item of moveablesWorker) {
   //     let distance: Vector = new Vector(0, 0);
   //     distance.x = x - item.position.x;
   //     distance.y = y - item.position.y;
@@ -132,23 +149,68 @@ namespace doenerTrainer {
     let customerClass: customers = new customers(new Vector(0, 515));
 
     customerClass.draw();
+    // console.log(customerClass.preferences);
     moveablesCustomer.push(customerClass);
     customer = customerClass;
   }
- 
+  
+  export function callOrder(): void {
+    let preferenceTrue: string[] = [];
+    let preferenceFalse: string[] = [];
+
+    if (customer.preferences.cheese === true) {
+      preferenceTrue.push("Cheese");
+    } else {
+      preferenceFalse.push("Cheese");
+    }
+
+    if (customer.preferences.chili === true) {
+      preferenceTrue.push("Chili");
+    } else {
+      preferenceFalse.push("Chili");
+    }
+
+    if (customer.preferences.mushrooms === true) {
+      preferenceTrue.push("Mushrooms");
+    } else {
+      preferenceFalse.push("Mushrooms");
+    }
+
+    if (customer.preferences.onion === true) {
+      preferenceTrue.push("Onion");
+    } else {
+      preferenceFalse.push("Onion");
+    }
+
+    if (customer.preferences.tomato === true) {
+      preferenceTrue.push("Tomato");
+    } else {
+      preferenceFalse.push("Tomato");
+    }
+
     let bread: string[] = ["pics/bread_doener.png", "pics/bread_pita.png", "pics/bread_lahmacun.png"];
     let randomBread: number = Math.floor(Math.random() * bread.length);
     console.log(randomBread);
     let orderDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("order");
-    
+    let ichWill: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("ichWill");
+    let ichWillNicht: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("ichWillNicht");
+
+    ichWill.innerHTML = "Ich will: " + preferenceTrue;
+    ichWillNicht.innerHTML = "Ich will nicht: " + preferenceFalse;
+
+    orderDiv.appendChild(ichWill);
+    orderDiv.appendChild(ichWillNicht);
+
     let imageBread: HTMLImageElement = <HTMLImageElement>document.createElement("img");
     imageBread.setAttribute("src", bread[randomBread]);
     imageBread.setAttribute("id", "Bread");
     orderDiv.appendChild(imageBread);
   }
-
-// bread_doener bread_lahmacun bread_pita
-
-// customer_happy customer_mad customer_neutral
-
-// ingredient_cheese  ingredient_chili ingredient_mushrooms ingredient_onion ingredient_tomato
+  function clickOnCheese(): void {
+    console.log("cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese")
+    let imageBread: HTMLImageElement = <HTMLImageElement>document.getElementById("Bread");
+    let img: HTMLImageElement = <HTMLImageElement>document.createElement("img");
+    img.setAttribute("src", "pic/ingredient_cheese.png");
+    imageBread.appendChild(img);
+  }
+}
