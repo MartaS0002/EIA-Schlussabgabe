@@ -11,10 +11,23 @@
     <script src="moveable.js"></script>
     <script src="canvasBackground.js"></script>
     <script src="workers.js"></script>
+    <script src="customers.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+    <div style="display:none;">
+        <img id="happy" src="pics/customer_happy.png">
+        <!-- <img id="neutral" src="pics/customer_neutral.png">
+        <img id="mad" src="pics/customer_mad.png"> -->
+    </div>
+    <!-- <div style="display:none;">
+        <img id="ingredientCheese" src="pics/ingredient_cheese.png">
+        <img id="ingredientChili" src="pics/ingredient_chili.png">
+        <img id="ingredientMushroom" src="pics/ingredient_mushrooms.png">
+        <img id="ingredientOnion" src="pics/ingredient_onion.png">
+        <img id="ingredientTomato" src="pics/ingredient_tomato.png">
+    </div> -->
     <h1>Welcome to Döner-Trainer</h1>
     <div class="settings">
         <h2>Döner-Settings</h2>
@@ -34,7 +47,7 @@
             Leerlauf
             <input type="range" name="maxSprint" min="1" max="10" value="1" step="1" />
             <br>
-            <button type="button">Start</button>
+            <button type="button" id="start">Start</button>
             <button type="button">Refresh page</button>
         </form>
     </div>

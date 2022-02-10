@@ -31,6 +31,9 @@ var doenerTrainer;
             this.x += _addend.x;
             this.y += _addend.y;
         }
+        addCustomer(_addend) {
+            this.x += _addend.x;
+        }
         copy() {
             return new Vector(this.x, this.y);
         }

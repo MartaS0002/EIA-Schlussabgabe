@@ -8,6 +8,7 @@ namespace doenerTrainer {
 
       this.velocity = Vector.getRandom(0.5, 0.5);
     }
+
     public draw(): void {
       crc2.beginPath();
       crc2.arc(this.position.x, this.position.y, 15, 0, 2 * Math.PI);

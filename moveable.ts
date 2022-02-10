@@ -1,5 +1,6 @@
 namespace doenerTrainer {
   export abstract class Moveable {
+    angekommen: boolean = false;
     position: Vector;
     public velocity: Vector;
 
@@ -17,7 +18,21 @@ namespace doenerTrainer {
       if (this.position.x < 50) this.velocity.scale(-1);
       if (this.position.y < 170) this.velocity.scale(-1);
       if (this.position.x > 650) this.velocity.scale(-1);
-      if (this.position.y > 430) this.velocity.scale(-1);
+      if (this.position.y > 400) this.velocity.scale(-1);
+    }
+
+    public moveCustomer(_timeslice: number): void {
+
+      let offset: Vector = this.velocity.copy();
+      // offset.scale(_timeslice);
+      this.position.addCustomer(offset);
+      if (this.position.x < 0) {
+        this.velocity.scale(-1);
+      }
+      if (this.position.x > 570) {
+        this.velocity = Vector.getRandom(0, 0);
+        this.angekommen = true;
+      }
     }
 
     public abstract draw(): void;
