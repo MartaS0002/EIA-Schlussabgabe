@@ -57,7 +57,7 @@ canvas {
   position: relative;
   margin-top: 50px;
   background-color: rgb(158, 158, 158);
-  margin-left: auto;
+  margin-left: 40px;
   margin-right: auto;
   display: block;
   border-style: solid;
@@ -68,7 +68,7 @@ canvas {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .stunden {
@@ -82,6 +82,7 @@ canvas {
   position: relative;
   width: 300px;
   height: 615px;
+  text-align: center;
   border-radius: 4px;
   border-style: solid;
   border-color: black;
@@ -100,13 +101,13 @@ button:disabled {
 }
 
 .btn-group button {
-  position: absolute;
+  position: relative;
   padding: 10px 10px;
-  margin-top: 450px;
+  margin-top: 50px;
 }
 
 .finishButton {
-  margin-left: 120px;
+  margin-right: 40px;
 }
 
 .deleteIngredientButton {
@@ -115,6 +116,7 @@ button:disabled {
 
 .capacity {
   position: relative;
+  text-align: center;
   top: 50px;
   width: 250px;
   height: 615px;
@@ -149,8 +151,7 @@ width: 60px;
 
 #Bread {
   position: relative;
-  left: 50px;
-  top: 100px;
+  top: 50px;
   width: 200px;
   height: 170px;
 }

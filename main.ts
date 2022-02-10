@@ -49,35 +49,8 @@ namespace doenerTrainer {
   function drawBackground(): void {
     let backgroundClass: canvasBackground = new canvasBackground();
     backgroundClass.drawBackground();
+    backgroundClass.displayJars();
   }
-
-  // function drawIngredients(): void {
-  //   let imageMeat: HTMLImageElement = <HTMLImageElement>(
-  //     document.getElementById("ingredientMeat")
-  //   );
-  //   crc2.drawImage(imageMeat, 60, 435, 60, 60);
-  //   imageMeat.addEventListener("click", clickOnMeat);
-
-  //   let imageLettuce: HTMLImageElement = <HTMLImageElement>(
-  //     document.getElementById("ingredientLettuce")
-  //   );
-  //   crc2.drawImage(imageLettuce, 150, 435, 60, 60);
-
-  //   let imageMushroom: HTMLImageElement = <HTMLImageElement>(
-  //     document.getElementById("ingredientMushroom")
-  //   );
-  //   crc2.drawImage(imageMushroom, 240, 435, 60, 60);
-
-  //   let imageOnion: HTMLImageElement = <HTMLImageElement>(
-  //     document.getElementById("ingredientOnion")
-  //   );
-  //   crc2.drawImage(imageOnion, 325, 435, 60, 60);
-
-  //   let imageTomato: HTMLImageElement = <HTMLImageElement>(
-  //     document.getElementById("ingredientTomato")
-  //   );
-  //   crc2.drawImage(imageTomato, 420, 435, 60, 60);
-  // }
 
   function handleChange(_event: Event): void {
     let startButton: HTMLButtonElement = <HTMLButtonElement>(
@@ -233,16 +206,5 @@ namespace doenerTrainer {
     imageBread.setAttribute("src", bread[randomBread]);
     imageBread.setAttribute("id", "Bread");
     orderDiv.appendChild(imageBread);
-  }
-  function clickOnMeat(): void {
-    console.log(
-      "cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese"
-    );
-    let imageBread: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("Bread")
-    );
-    let img: HTMLImageElement = <HTMLImageElement>document.createElement("img");
-    img.setAttribute("src", "pic/ingredient_Meat.png");
-    imageBread.appendChild(img);
   }
 }

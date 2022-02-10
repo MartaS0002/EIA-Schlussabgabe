@@ -32,30 +32,8 @@ var doenerTrainer;
     function drawBackground() {
         let backgroundClass = new doenerTrainer.canvasBackground();
         backgroundClass.drawBackground();
+        backgroundClass.displayJars();
     }
-    // function drawIngredients(): void {
-    //   let imageMeat: HTMLImageElement = <HTMLImageElement>(
-    //     document.getElementById("ingredientMeat")
-    //   );
-    //   crc2.drawImage(imageMeat, 60, 435, 60, 60);
-    //   imageMeat.addEventListener("click", clickOnMeat);
-    //   let imageLettuce: HTMLImageElement = <HTMLImageElement>(
-    //     document.getElementById("ingredientLettuce")
-    //   );
-    //   crc2.drawImage(imageLettuce, 150, 435, 60, 60);
-    //   let imageMushroom: HTMLImageElement = <HTMLImageElement>(
-    //     document.getElementById("ingredientMushroom")
-    //   );
-    //   crc2.drawImage(imageMushroom, 240, 435, 60, 60);
-    //   let imageOnion: HTMLImageElement = <HTMLImageElement>(
-    //     document.getElementById("ingredientOnion")
-    //   );
-    //   crc2.drawImage(imageOnion, 325, 435, 60, 60);
-    //   let imageTomato: HTMLImageElement = <HTMLImageElement>(
-    //     document.getElementById("ingredientTomato")
-    //   );
-    //   crc2.drawImage(imageTomato, 420, 435, 60, 60);
-    // }
     function handleChange(_event) {
         let startButton = (document.getElementById("start"));
         let target = _event.target;
@@ -184,12 +162,5 @@ var doenerTrainer;
         orderDiv.appendChild(imageBread);
     }
     doenerTrainer.callOrder = callOrder;
-    function clickOnMeat() {
-        console.log("cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese");
-        let imageBread = (document.getElementById("Bread"));
-        let img = document.createElement("img");
-        img.setAttribute("src", "pic/ingredient_Meat.png");
-        imageBread.appendChild(img);
-    }
 })(doenerTrainer || (doenerTrainer = {}));
 //# sourceMappingURL=main.js.map
