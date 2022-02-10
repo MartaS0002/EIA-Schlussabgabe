@@ -1,14 +1,21 @@
-/* smiles:
-<a href='https://de.freepik.com/vektoren/hintergrund'>Hintergrund Vektor erstellt von rawpixel.com - de.freepik.com</a> */
+/* customers:
+https://de.freepik.com/vektoren-kostenlos/emoji-emoticons-set-gesicht-ausdruck-gefuehle-sammlung_2610008.htm#query=smiley&position=17&from_view=search
 
-/* food:
-<a href='https://de.freepik.com/vektoren/hintergrund'>Hintergrund Vektor erstellt von freepik - de.freepik.com</a>
-<a href='https://de.freepik.com/vektoren/lebensmittel'>Lebensmittel Vektor erstellt von dooder - de.freepik.com</a> */
+food:
+meat: https://www.flaticon.com/free-icon/meat_3082041?related_id=3081928&origin=search
+onion: https://www.flaticon.com/premium-icon/onion_395297?related_id=395297&origin=search
+onion: https://www.flaticon.com/free-icon/mushroom_877743?term=mushroom&related_id=877743
+tomato: https://www.flaticon.com/premium-icon/tomato_723036
+lettuce: https://www.flaticon.com/free-icon/lettuce_3349765
 
-/* pita:
-<a href="https://www.flaticon.com/free-icons/pita-bread" title="pita bread icons">Pita bread icons created by Freepik - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/pita-bread" title="pita bread icons">Pita bread icons created by Freepik - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/bread" title="bread icons">Bread icons created by Freepik - Flaticon</a> */
+pita:
+https://www.flaticon.com/free-icon/pita-_1182170?term=pita%20bread&page=1&position=16&page=1&position=16&related_id=1182170&origin=tag
+https://www.flaticon.com/free-icon/pita_6775923
+https://www.flaticon.com/premium-icon/pita-bread_1999964
+
+worker
+https://de.freepik.com/freie-ikonen/mann_15506256.htm#query=employee&position=35&from_view=search
+*/
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -89,7 +96,7 @@ button {
 }
 
 button:disabled {
-  cursor:auto;
+  cursor: auto;
 }
 
 .btn-group button {
@@ -121,5 +128,5 @@ button:disabled {
   left: 50px;
   top: 100px;
   width: 200px;
-  height: 150px;
+  height: 170px;
 }

@@ -6,8 +6,8 @@ var doenerTrainer;
             super(_position);
             this.mood = "happy";
             this.preferences = {
-                cheese: (Math.random() < 0.5),
-                chili: (Math.random() < 0.5),
+                meat: (Math.random() < 0.5),
+                lettuce: (Math.random() < 0.5),
                 mushrooms: (Math.random() < 0.5),
                 onion: (Math.random() < 0.5),
                 tomato: (Math.random() < 0.5)

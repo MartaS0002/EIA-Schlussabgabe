@@ -1,7 +1,7 @@
 namespace doenerTrainer {
     interface preferences {
-        cheese: boolean;
-        chili: boolean;
+        meat: boolean;
+        lettuce: boolean;
         mushrooms: boolean;
         onion: boolean;
         tomato: boolean;
@@ -11,8 +11,8 @@ namespace doenerTrainer {
         position: Vector;
         mood: string = "happy";
         preferences: preferences = {
-            cheese: (Math.random() < 0.5),
-            chili: (Math.random() < 0.5),
+            meat: (Math.random() < 0.5),
+            lettuce: (Math.random() < 0.5),
             mushrooms: (Math.random() < 0.5),
             onion: (Math.random() < 0.5),
             tomato: (Math.random() < 0.5)
@@ -34,7 +34,6 @@ namespace doenerTrainer {
 
             } else if (this.mood === "mad") {
                 image = document.getElementById("mad");
-
             }
 
             crc2.drawImage(image, this.position.x, this.position.y, 70, 70);

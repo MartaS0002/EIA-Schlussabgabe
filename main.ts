@@ -51,31 +51,31 @@ namespace doenerTrainer {
   }
 
   function drawIngredients(): void {
-    let imageCheese: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientCheese")
+    let imageMeat: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("ingredientMeat")
     );
-    crc2.drawImage(imageCheese, 70, 435, 50, 50);
-    imageCheese.addEventListener("click", clickOnCheese);
+    crc2.drawImage(imageMeat, 60, 435, 60, 60);
+    imageMeat.addEventListener("click", clickOnMeat);
 
-    let imageChili: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientChili")
+    let imageLettuce: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("ingredientLettuce")
     );
-    crc2.drawImage(imageChili, 150, 435, 50, 50);
+    crc2.drawImage(imageLettuce, 150, 435, 60, 60);
 
     let imageMushroom: HTMLImageElement = <HTMLImageElement>(
       document.getElementById("ingredientMushroom")
     );
-    crc2.drawImage(imageMushroom, 230, 435, 50, 50);
+    crc2.drawImage(imageMushroom, 240, 435, 60, 60);
 
     let imageOnion: HTMLImageElement = <HTMLImageElement>(
       document.getElementById("ingredientOnion")
     );
-    crc2.drawImage(imageOnion, 310, 435, 50, 50);
+    crc2.drawImage(imageOnion, 325, 435, 60, 60);
 
     let imageTomato: HTMLImageElement = <HTMLImageElement>(
       document.getElementById("ingredientTomato")
     );
-    crc2.drawImage(imageTomato, 390, 435, 50, 50);
+    crc2.drawImage(imageTomato, 420, 435, 60, 60);
   }
 
   function handleChange(_event: Event): void {
@@ -173,16 +173,16 @@ namespace doenerTrainer {
     let preferenceTrue: string[] = [];
     let preferenceFalse: string[] = [];
 
-    if (customer.preferences.cheese === true) {
-      preferenceTrue.push("Cheese");
+    if (customer.preferences.meat === true) {
+      preferenceTrue.push("Meat");
     } else {
-      preferenceFalse.push("Cheese");
+      preferenceFalse.push("Meat");
     }
 
-    if (customer.preferences.chili === true) {
-      preferenceTrue.push("Chili");
+    if (customer.preferences.lettuce === true) {
+      preferenceTrue.push("Lettuce");
     } else {
-      preferenceFalse.push("Chili");
+      preferenceFalse.push("Lettuce");
     }
 
     if (customer.preferences.mushrooms === true) {
@@ -233,7 +233,7 @@ namespace doenerTrainer {
     imageBread.setAttribute("id", "Bread");
     orderDiv.appendChild(imageBread);
   }
-  function clickOnCheese(): void {
+  function clickOnMeat(): void {
     console.log(
       "cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese"
     );
@@ -241,7 +241,7 @@ namespace doenerTrainer {
       document.getElementById("Bread")
     );
     let img: HTMLImageElement = <HTMLImageElement>document.createElement("img");
-    img.setAttribute("src", "pic/ingredient_cheese.png");
+    img.setAttribute("src", "pic/ingredient_Meat.png");
     imageBread.appendChild(img);
   }
 }

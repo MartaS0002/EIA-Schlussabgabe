@@ -34,17 +34,17 @@ var doenerTrainer;
         backgroundClass.drawBackground();
     }
     function drawIngredients() {
-        let imageCheese = (document.getElementById("ingredientCheese"));
-        doenerTrainer.crc2.drawImage(imageCheese, 70, 435, 50, 50);
-        imageCheese.addEventListener("click", clickOnCheese);
-        let imageChili = (document.getElementById("ingredientChili"));
-        doenerTrainer.crc2.drawImage(imageChili, 150, 435, 50, 50);
+        let imageMeat = (document.getElementById("ingredientMeat"));
+        doenerTrainer.crc2.drawImage(imageMeat, 60, 435, 60, 60);
+        imageMeat.addEventListener("click", clickOnMeat);
+        let imageLettuce = (document.getElementById("ingredientLettuce"));
+        doenerTrainer.crc2.drawImage(imageLettuce, 150, 435, 60, 60);
         let imageMushroom = (document.getElementById("ingredientMushroom"));
-        doenerTrainer.crc2.drawImage(imageMushroom, 230, 435, 50, 50);
+        doenerTrainer.crc2.drawImage(imageMushroom, 240, 435, 60, 60);
         let imageOnion = (document.getElementById("ingredientOnion"));
-        doenerTrainer.crc2.drawImage(imageOnion, 310, 435, 50, 50);
+        doenerTrainer.crc2.drawImage(imageOnion, 325, 435, 60, 60);
         let imageTomato = (document.getElementById("ingredientTomato"));
-        doenerTrainer.crc2.drawImage(imageTomato, 390, 435, 50, 50);
+        doenerTrainer.crc2.drawImage(imageTomato, 420, 435, 60, 60);
     }
     function handleChange(_event) {
         let startButton = (document.getElementById("start"));
@@ -124,17 +124,17 @@ var doenerTrainer;
     function callOrder() {
         let preferenceTrue = [];
         let preferenceFalse = [];
-        if (customer.preferences.cheese === true) {
-            preferenceTrue.push("Cheese");
+        if (customer.preferences.meat === true) {
+            preferenceTrue.push("Meat");
         }
         else {
-            preferenceFalse.push("Cheese");
+            preferenceFalse.push("Meat");
         }
-        if (customer.preferences.chili === true) {
-            preferenceTrue.push("Chili");
+        if (customer.preferences.lettuce === true) {
+            preferenceTrue.push("Lettuce");
         }
         else {
-            preferenceFalse.push("Chili");
+            preferenceFalse.push("Lettuce");
         }
         if (customer.preferences.mushrooms === true) {
             preferenceTrue.push("Mushrooms");
@@ -174,11 +174,11 @@ var doenerTrainer;
         orderDiv.appendChild(imageBread);
     }
     doenerTrainer.callOrder = callOrder;
-    function clickOnCheese() {
+    function clickOnMeat() {
         console.log("cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese");
         let imageBread = (document.getElementById("Bread"));
         let img = document.createElement("img");
-        img.setAttribute("src", "pic/ingredient_cheese.png");
+        img.setAttribute("src", "pic/ingredient_Meat.png");
         imageBread.appendChild(img);
     }
 })(doenerTrainer || (doenerTrainer = {}));

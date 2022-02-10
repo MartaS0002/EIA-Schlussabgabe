@@ -11,11 +11,8 @@ var doenerTrainer;
             this.velocity = doenerTrainer.Vector.getRandom(0.5, 0.5);
         }
         draw() {
-            doenerTrainer.crc2.beginPath();
-            doenerTrainer.crc2.arc(this.position.x, this.position.y, 15, 0, 2 * Math.PI);
-            doenerTrainer.crc2.fillStyle = "grey";
-            doenerTrainer.crc2.fill();
-            doenerTrainer.crc2.stroke();
+            let image = document.getElementById("workerIcon");
+            doenerTrainer.crc2.drawImage(image, this.position.x, this.position.y, 60, 60);
         }
     }
     doenerTrainer.workers = workers;

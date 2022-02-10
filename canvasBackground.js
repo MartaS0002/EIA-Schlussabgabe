@@ -27,7 +27,7 @@ var doenerTrainer;
             // counter
             doenerTrainer.crc2.beginPath();
             doenerTrainer.crc2.fillStyle = "gray";
-            doenerTrainer.crc2.fillRect(doenerTrainer.crc2.canvas.width / 2 - 380, doenerTrainer.crc2.canvas.height - 200, 500, 100);
+            doenerTrainer.crc2.fillRect(doenerTrainer.crc2.canvas.width / 2 - 380, doenerTrainer.crc2.canvas.height - 190, 500, 90);
             doenerTrainer.crc2.closePath();
         }
     }

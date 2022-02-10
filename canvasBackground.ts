@@ -30,9 +30,9 @@ namespace doenerTrainer {
       crc2.fillStyle = "gray";
       crc2.fillRect(
         crc2.canvas.width / 2 - 380,
-        crc2.canvas.height - 200,
+        crc2.canvas.height - 190,
         500,
-        100
+        90
       );
       crc2.closePath();
     }
