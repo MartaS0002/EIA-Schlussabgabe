@@ -28,7 +28,8 @@ namespace doenerTrainer {
 
     button[1].addEventListener("click", refreshPage); // button click -> refreshPage
     drawBackground();
-    drawIngredients();
+    // drawIngredients();
+
 
     let startButton: HTMLButtonElement = <HTMLButtonElement>(
       document.getElementById("start")
@@ -50,33 +51,33 @@ namespace doenerTrainer {
     backgroundClass.drawBackground();
   }
 
-  function drawIngredients(): void {
-    let imageMeat: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientMeat")
-    );
-    crc2.drawImage(imageMeat, 60, 435, 60, 60);
-    imageMeat.addEventListener("click", clickOnMeat);
+  // function drawIngredients(): void {
+  //   let imageMeat: HTMLImageElement = <HTMLImageElement>(
+  //     document.getElementById("ingredientMeat")
+  //   );
+  //   crc2.drawImage(imageMeat, 60, 435, 60, 60);
+  //   imageMeat.addEventListener("click", clickOnMeat);
 
-    let imageLettuce: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientLettuce")
-    );
-    crc2.drawImage(imageLettuce, 150, 435, 60, 60);
+  //   let imageLettuce: HTMLImageElement = <HTMLImageElement>(
+  //     document.getElementById("ingredientLettuce")
+  //   );
+  //   crc2.drawImage(imageLettuce, 150, 435, 60, 60);
 
-    let imageMushroom: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientMushroom")
-    );
-    crc2.drawImage(imageMushroom, 240, 435, 60, 60);
+  //   let imageMushroom: HTMLImageElement = <HTMLImageElement>(
+  //     document.getElementById("ingredientMushroom")
+  //   );
+  //   crc2.drawImage(imageMushroom, 240, 435, 60, 60);
 
-    let imageOnion: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientOnion")
-    );
-    crc2.drawImage(imageOnion, 325, 435, 60, 60);
+  //   let imageOnion: HTMLImageElement = <HTMLImageElement>(
+  //     document.getElementById("ingredientOnion")
+  //   );
+  //   crc2.drawImage(imageOnion, 325, 435, 60, 60);
 
-    let imageTomato: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientTomato")
-    );
-    crc2.drawImage(imageTomato, 420, 435, 60, 60);
-  }
+  //   let imageTomato: HTMLImageElement = <HTMLImageElement>(
+  //     document.getElementById("ingredientTomato")
+  //   );
+  //   crc2.drawImage(imageTomato, 420, 435, 60, 60);
+  // }
 
   function handleChange(_event: Event): void {
     let startButton: HTMLButtonElement = <HTMLButtonElement>(

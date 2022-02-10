@@ -23,13 +23,14 @@
         <img id="mad" src="pics/customer_mad.png">
         <img id="workerIcon" src="pics/worker.png">
     </div>
-    <div style="display:none;">
+    <!-- <div style="display:none;">
         <img id="ingredientMeat" src="pics/ingredient_meat.png">
         <img id="ingredientLettuce" src="pics/ingredient_lettuce.png">
         <img id="ingredientMushroom" src="pics/ingredient_mushrooms.png">
         <img id="ingredientOnion" src="pics/ingredient_onion.png">
         <img id="ingredientTomato" src="pics/ingredient_tomato.png">
-    </div>
+    </div> -->
+
     <h1>Welcome to Döner-Trainer</h1>
     <div class="settings">
         <h2>Döner-Settings</h2>
@@ -57,7 +58,16 @@
 
     <div class="flexBox">
         <div class="capacity">
-
+        </div>
+        <div class="counterDiv">
+            <!-- THEKE ALS DIV??? -->
+            <div class="containerIngredients">
+                <img id="ingredientMeat" src="pics/ingredient_meat.png">
+                <img id="ingredientLettuce" src="pics/ingredient_lettuce.png">
+                <img id="ingredientMushroom" src="pics/ingredient_mushrooms.png">
+                <img id="ingredientOnion" src="pics/ingredient_onion.png">
+                <img id="ingredientTomato" src="pics/ingredient_tomato.png">
+            </div>
         </div>
         <div class="canvas">
             <canvas width=800 height=610>
@@ -67,10 +77,10 @@
             <h2>Order</h2>
             <p id="ichWill"></p>
             <p id="ichWillNicht"></p>
-            <div class="btn-group">   
-            <button class="finishButton">Finish Order</button>
-            <button class="deleteIngredientButton">Delete</button>
-              </div>
+            <div class="btn-group">
+                <button class="finishButton">Finish Order</button>
+                <button class="deleteIngredientButton">Delete</button>
+            </div>
         </div>
 
     </div>

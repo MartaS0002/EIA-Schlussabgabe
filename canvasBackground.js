@@ -24,11 +24,16 @@ var doenerTrainer;
             doenerTrainer.crc2.strokeStyle = "white";
             doenerTrainer.crc2.stroke();
             doenerTrainer.crc2.closePath();
-            // counter
-            doenerTrainer.crc2.beginPath();
-            doenerTrainer.crc2.fillStyle = "gray";
-            doenerTrainer.crc2.fillRect(doenerTrainer.crc2.canvas.width / 2 - 380, doenerTrainer.crc2.canvas.height - 190, 500, 90);
-            doenerTrainer.crc2.closePath();
+            // // counter
+            // crc2.beginPath();
+            // crc2.fillStyle = "gray";
+            // crc2.fillRect(
+            //   crc2.canvas.width / 2 - 380,
+            //   crc2.canvas.height - 190,
+            //   500,
+            //   90
+            // );
+            // crc2.closePath();
         }
     }
     doenerTrainer.canvasBackground = canvasBackground;
