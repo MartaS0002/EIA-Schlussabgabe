@@ -21,7 +21,7 @@ var doenerTrainer;
         button[1].addEventListener("click", refreshPage); // button click -> refreshPage
         drawBackground();
         drawIngredients();
-        let startButton = document.getElementById("start");
+        let startButton = (document.getElementById("start"));
         if (numberWorkers === 0) {
             startButton.disabled = true;
         }
@@ -34,20 +34,20 @@ var doenerTrainer;
         backgroundClass.drawBackground();
     }
     function drawIngredients() {
-        let imageCheese = document.getElementById("ingredientCheese");
+        let imageCheese = (document.getElementById("ingredientCheese"));
         doenerTrainer.crc2.drawImage(imageCheese, 70, 435, 50, 50);
         imageCheese.addEventListener("click", clickOnCheese);
-        let imageChili = document.getElementById("ingredientChili");
+        let imageChili = (document.getElementById("ingredientChili"));
         doenerTrainer.crc2.drawImage(imageChili, 150, 435, 50, 50);
-        let imageMushroom = document.getElementById("ingredientMushroom");
+        let imageMushroom = (document.getElementById("ingredientMushroom"));
         doenerTrainer.crc2.drawImage(imageMushroom, 230, 435, 50, 50);
-        let imageOnion = document.getElementById("ingredientOnion");
+        let imageOnion = (document.getElementById("ingredientOnion"));
         doenerTrainer.crc2.drawImage(imageOnion, 310, 435, 50, 50);
-        let imageTomato = document.getElementById("ingredientTomato");
+        let imageTomato = (document.getElementById("ingredientTomato"));
         doenerTrainer.crc2.drawImage(imageTomato, 390, 435, 50, 50);
     }
     function handleChange(_event) {
-        let startButton = document.getElementById("start");
+        let startButton = (document.getElementById("start"));
         let target = _event.target;
         if (target.name === "numberWorkers") {
             numberWorkers = parseInt(target.value);
@@ -66,12 +66,11 @@ var doenerTrainer;
         if (clickStart === 0) {
             for (let i = 0; i < numberWorkers; i++) {
                 callWorker();
+                clickStart++;
+                let startButton = (document.getElementById("start"));
+                startButton.disabled = true;
             }
         }
-        else {
-            alert("Du hast schon auf Start gedrückt");
-        }
-        clickStart++;
         callCustomers();
     }
     function callWorker() {
@@ -155,17 +154,21 @@ var doenerTrainer;
         else {
             preferenceFalse.push("Tomato");
         }
-        let bread = ["pics/bread_doener.png", "pics/bread_pita.png", "pics/bread_lahmacun.png"];
+        let bread = [
+            "pics/bread_doener.png",
+            "pics/bread_pita.png",
+            "pics/bread_lahmacun.png",
+        ];
         let randomBread = Math.floor(Math.random() * bread.length);
         console.log(randomBread);
-        let orderDiv = document.getElementById("order");
-        let ichWill = document.getElementById("ichWill");
-        let ichWillNicht = document.getElementById("ichWillNicht");
+        let orderDiv = (document.getElementById("order"));
+        let ichWill = (document.getElementById("ichWill"));
+        let ichWillNicht = (document.getElementById("ichWillNicht"));
         ichWill.innerHTML = "Ich will: " + preferenceTrue;
         ichWillNicht.innerHTML = "Ich will nicht: " + preferenceFalse;
         orderDiv.appendChild(ichWill);
         orderDiv.appendChild(ichWillNicht);
-        let imageBread = document.createElement("img");
+        let imageBread = (document.createElement("img"));
         imageBread.setAttribute("src", bread[randomBread]);
         imageBread.setAttribute("id", "Bread");
         orderDiv.appendChild(imageBread);
@@ -173,7 +176,7 @@ var doenerTrainer;
     doenerTrainer.callOrder = callOrder;
     function clickOnCheese() {
         console.log("cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese");
-        let imageBread = document.getElementById("Bread");
+        let imageBread = (document.getElementById("Bread"));
         let img = document.createElement("img");
         img.setAttribute("src", "pic/ingredient_cheese.png");
         imageBread.appendChild(img);

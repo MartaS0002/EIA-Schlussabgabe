@@ -30,7 +30,9 @@ namespace doenerTrainer {
     drawBackground();
     drawIngredients();
 
-    let startButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("start");
+    let startButton: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("start")
+    );
 
     if (numberWorkers === 0) {
       startButton.disabled = true;
@@ -49,25 +51,37 @@ namespace doenerTrainer {
   }
 
   function drawIngredients(): void {
-    let imageCheese: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientCheese");
+    let imageCheese: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("ingredientCheese")
+    );
     crc2.drawImage(imageCheese, 70, 435, 50, 50);
     imageCheese.addEventListener("click", clickOnCheese);
 
-    let imageChili: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientChili");
+    let imageChili: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("ingredientChili")
+    );
     crc2.drawImage(imageChili, 150, 435, 50, 50);
 
-    let imageMushroom: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientMushroom");
+    let imageMushroom: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("ingredientMushroom")
+    );
     crc2.drawImage(imageMushroom, 230, 435, 50, 50);
 
-    let imageOnion: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientOnion");
+    let imageOnion: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("ingredientOnion")
+    );
     crc2.drawImage(imageOnion, 310, 435, 50, 50);
 
-    let imageTomato: HTMLImageElement = <HTMLImageElement>document.getElementById("ingredientTomato");
+    let imageTomato: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("ingredientTomato")
+    );
     crc2.drawImage(imageTomato, 390, 435, 50, 50);
   }
 
   function handleChange(_event: Event): void {
-    let startButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("start");
+    let startButton: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("start")
+    );
 
     let target: HTMLInputElement = <HTMLInputElement>_event.target;
     if (target.name === "numberWorkers") {
@@ -83,18 +97,19 @@ namespace doenerTrainer {
   }
 
   function start(): void {
-
     if (numberWorkers > 10) {
       numberWorkers = 10;
     }
     if (clickStart === 0) {
       for (let i: number = 0; i < numberWorkers; i++) {
         callWorker();
+        clickStart++;
+        let startButton: HTMLButtonElement = <HTMLButtonElement>(
+          document.getElementById("start")
+        );
+        startButton.disabled = true;
       }
-    } else {
-      alert("Du hast schon auf Start gedrückt");
     }
-    clickStart++;
     callCustomers();
   }
 
@@ -153,7 +168,7 @@ namespace doenerTrainer {
     moveablesCustomer.push(customerClass);
     customer = customerClass;
   }
-  
+
   export function callOrder(): void {
     let preferenceTrue: string[] = [];
     let preferenceFalse: string[] = [];
@@ -188,12 +203,22 @@ namespace doenerTrainer {
       preferenceFalse.push("Tomato");
     }
 
-    let bread: string[] = ["pics/bread_doener.png", "pics/bread_pita.png", "pics/bread_lahmacun.png"];
+    let bread: string[] = [
+      "pics/bread_doener.png",
+      "pics/bread_pita.png",
+      "pics/bread_lahmacun.png",
+    ];
     let randomBread: number = Math.floor(Math.random() * bread.length);
     console.log(randomBread);
-    let orderDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("order");
-    let ichWill: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("ichWill");
-    let ichWillNicht: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("ichWillNicht");
+    let orderDiv: HTMLDivElement = <HTMLDivElement>(
+      document.getElementById("order")
+    );
+    let ichWill: HTMLParagraphElement = <HTMLParagraphElement>(
+      document.getElementById("ichWill")
+    );
+    let ichWillNicht: HTMLParagraphElement = <HTMLParagraphElement>(
+      document.getElementById("ichWillNicht")
+    );
 
     ichWill.innerHTML = "Ich will: " + preferenceTrue;
     ichWillNicht.innerHTML = "Ich will nicht: " + preferenceFalse;
@@ -201,14 +226,20 @@ namespace doenerTrainer {
     orderDiv.appendChild(ichWill);
     orderDiv.appendChild(ichWillNicht);
 
-    let imageBread: HTMLImageElement = <HTMLImageElement>document.createElement("img");
+    let imageBread: HTMLImageElement = <HTMLImageElement>(
+      document.createElement("img")
+    );
     imageBread.setAttribute("src", bread[randomBread]);
     imageBread.setAttribute("id", "Bread");
     orderDiv.appendChild(imageBread);
   }
   function clickOnCheese(): void {
-    console.log("cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese")
-    let imageBread: HTMLImageElement = <HTMLImageElement>document.getElementById("Bread");
+    console.log(
+      "cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeese"
+    );
+    let imageBread: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("Bread")
+    );
     let img: HTMLImageElement = <HTMLImageElement>document.createElement("img");
     img.setAttribute("src", "pic/ingredient_cheese.png");
     imageBread.appendChild(img);
