@@ -1,20 +1,21 @@
 "use strict";
 var doenerTrainer;
 (function (doenerTrainer) {
-    class workers extends doenerTrainer.Moveable {
-        constructor(_position) {
+    class Workers extends doenerTrainer.Moveable {
+        constructor(_position, _zielposition) {
             super(_position);
             if (_position)
                 this.position = _position;
             else
                 this.position = new doenerTrainer.Vector(doenerTrainer.crc2.canvas.width, 380);
-            this.velocity = doenerTrainer.Vector.getRandom(0.5, 0.5);
+            this.velocity = new doenerTrainer.Vector(Math.random() * 1, Math.random() * 1);
+            this.zielposition = _zielposition;
         }
         draw() {
             let image = document.getElementById("workerIcon");
             doenerTrainer.crc2.drawImage(image, this.position.x, this.position.y, 60, 60);
         }
     }
-    doenerTrainer.workers = workers;
+    doenerTrainer.Workers = Workers;
 })(doenerTrainer || (doenerTrainer = {}));
 //# sourceMappingURL=workers.js.map

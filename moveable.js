@@ -2,16 +2,16 @@
 var doenerTrainer;
 (function (doenerTrainer) {
     class Moveable {
-        constructor(_position) {
+        constructor(_zielposition, _position) {
             this.angekommen = false;
             if (_position)
                 this.position = _position.copy();
             else
                 this.position = new doenerTrainer.Vector(0, 0);
+            this.zielposition = _zielposition;
         }
         move(_timeslice) {
             let offset = this.velocity.copy();
-            // offset.scale(_timeslice);
             this.position.add(offset);
             if (this.position.x < 50)
                 this.velocity.scale(-1);
@@ -24,17 +24,14 @@ var doenerTrainer;
         }
         moveCustomer(_timeslice) {
             let offset = this.velocity.copy();
-            // offset.scale(_timeslice);
             this.position.addCustomer(offset);
             if (this.position.x < 0) {
                 this.velocity.scale(-1);
             }
-            if (this.position.x > 600) {
-                this.velocity = doenerTrainer.Vector.getRandom(0, 0);
+            if (this.position.x > this.zielposition.x) {
+                this.velocity = new doenerTrainer.Vector(0, 0);
                 if (this.angekommen === false) {
                     doenerTrainer.callOrder();
-                }
-                else {
                 }
                 this.angekommen = true;
             }

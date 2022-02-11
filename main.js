@@ -1,11 +1,5 @@
 "use strict";
-// Delete ingredients im Order
-// finishOrder -> nex Customer (setTimeout???)
-// finishOrder -> delete alle imgs im Order
-// finishOrder -> verkaufte Gerichte innerHTML
-// CustomersMood wird schlechter (setTimeout???)
-// disable formElements nach dem Start
-// jars erst nach dem Start anklickbar -> check
+// CustomersMood wird schlechter ---> fast fertig noch für andere cases machen
 // jars nachfüllen braucht Zeit (setTimeout???)
 // jars nachfüllen -> Mitarbeiter geht hin und "fühlt sie nach"
 // ingredients (Theke) nachfüllen braucht Zeit (setTimeout???)
@@ -40,6 +34,8 @@ var doenerTrainer;
     };
     let numberWorkers = 0;
     let clickStart = 0;
+    let verkaufteGerichte = 0;
+    // let rohmateriallager: number = 0;
     function handleLoad(_event) {
         // all handleLoad
         let canvas = (document.querySelector("canvas"));
@@ -55,11 +51,12 @@ var doenerTrainer;
         let finishButton = (document.getElementById("finishButton"));
         finishButton.disabled = true;
         finishButton.addEventListener("click", analyseOrder);
-        // finishButton.addEventListener("click", callNewCustomer);
         let startButton = (document.getElementById("start"));
         if (numberWorkers === 0) {
             startButton.disabled = true;
         }
+        let deleteButton = (document.getElementById("deleteIngredientButton"));
+        deleteButton.addEventListener("click", deleteItemfromOrder);
         imgData = doenerTrainer.crc2.getImageData(0, 0, doenerTrainer.crc2.canvas.width, doenerTrainer.crc2.canvas.height);
         window.setInterval(update, 20);
     }
@@ -80,6 +77,7 @@ var doenerTrainer;
             let ingredientsDiv = (document.getElementById("ingredientsDiv"));
             let image = (document.createElement("img"));
             image.setAttribute("id", "orderImage");
+            image.setAttribute("class", "orderImageMeat");
             image.setAttribute("src", "pics/ingredient_meat.png");
             ingredientsDiv.appendChild(image);
             orderAnalyser.meat = true;
@@ -98,6 +96,7 @@ var doenerTrainer;
             let ingredientsDiv = (document.getElementById("ingredientsDiv"));
             let image = (document.createElement("img"));
             image.setAttribute("id", "orderImage");
+            image.setAttribute("class", "orderImageLettuce");
             image.setAttribute("src", "pics/ingredient_lettuce.png");
             ingredientsDiv.appendChild(image);
             orderAnalyser.lettuce = true;
@@ -116,6 +115,7 @@ var doenerTrainer;
             let ingredientsDiv = (document.getElementById("ingredientsDiv"));
             let image = (document.createElement("img"));
             image.setAttribute("id", "orderImage");
+            image.setAttribute("class", "orderImageMushrooms");
             image.setAttribute("src", "pics/ingredient_mushrooms.png");
             ingredientsDiv.appendChild(image);
             orderAnalyser.mushrooms = true;
@@ -134,6 +134,7 @@ var doenerTrainer;
             let ingredientsDiv = (document.getElementById("ingredientsDiv"));
             let image = (document.createElement("img"));
             image.setAttribute("id", "orderImage");
+            image.setAttribute("class", "orderImageOnion");
             image.setAttribute("src", "pics/ingredient_onion.png");
             ingredientsDiv.appendChild(image);
             orderAnalyser.onion = true;
@@ -152,6 +153,7 @@ var doenerTrainer;
             let ingredientsDiv = (document.getElementById("ingredientsDiv"));
             let image = (document.createElement("img"));
             image.setAttribute("id", "orderImage");
+            image.setAttribute("class", "orderImageTomato");
             image.setAttribute("src", "pics/ingredient_tomato.png");
             ingredientsDiv.appendChild(image);
             orderAnalyser.tomato = true;
@@ -186,11 +188,6 @@ var doenerTrainer;
     function refreshPage() {
         window.location.reload();
     }
-    // function callNewCustomer(): void {
-    //   console.log("new customer");
-    //   const myTimeout: number = setTimeout(callCustomers, 5000);
-    //   clearTimeout(myTimeout);
-    // }
     function start() {
         if (numberWorkers > 10) {
             numberWorkers = 10;
@@ -206,14 +203,14 @@ var doenerTrainer;
         callCustomers();
         displayCapacity();
         console.log(customer.preferences);
-        // callNewCustomer();
         let canvas = (document.querySelector("canvas"));
         canvas.addEventListener("click", canvasClicked);
+        disableForm();
     }
     function callWorker() {
         let randomX = Math.floor(Math.random() * 600) + 50;
         let randomY = Math.floor(Math.random() * 230) + 170;
-        let workerClass = new doenerTrainer.workers(new doenerTrainer.Vector(randomX, randomY));
+        let workerClass = new doenerTrainer.Workers(new doenerTrainer.Vector(randomX, randomY), new doenerTrainer.Vector(0, 0));
         workerClass.draw();
         moveablesWorker.push(workerClass);
     }
@@ -234,7 +231,9 @@ var doenerTrainer;
         //Meat angeklickt
         if (y > 30 && y < 120 && x > 150 && x < 180) {
             if (capacityJars.meat === 0) {
-                console.log("jar leer");
+                ////////////////////////////////////////////////////////// nachfüllen
+                let jarNachfuellen = (document.getElementById("jarNachfuellen"));
+                jarNachfuellen.innerHTML = "Meat nachfüllen";
             }
             else {
                 capacity.meat = capacity.meat + 1;
@@ -249,7 +248,6 @@ var doenerTrainer;
         // Lettuce angeklickt
         if (y > 30 && y < 120 && x > 250 && x < 310) {
             if (capacityJars.lettuce === 0) {
-                console.log("jar leer");
             }
             else {
                 capacity.lettuce = capacity.lettuce + 1;
@@ -264,7 +262,6 @@ var doenerTrainer;
         //Rooms angeklickt
         if (y > 30 && y < 120 && x > 350 && x < 410) {
             if (capacityJars.mushrooms === 0) {
-                console.log("jar leer");
             }
             else {
                 capacity.mushrooms = capacity.mushrooms + 1;
@@ -279,7 +276,6 @@ var doenerTrainer;
         // Onion angeklickt
         if (y > 30 && y < 120 && x > 450 && x < 510) {
             if (capacityJars.onions === 0) {
-                console.log("jar leer");
             }
             else {
                 capacity.onions = capacity.onions + 1;
@@ -294,7 +290,6 @@ var doenerTrainer;
         // Tomato angeklickt
         if (y > 30 && y < 120 && x > 550 && x < 610) {
             if (capacityJars.tomatoes === 0) {
-                console.log("jar leer");
             }
             else {
                 capacity.tomatoes = capacity.tomatoes + 1;
@@ -334,13 +329,6 @@ var doenerTrainer;
         let tomatoesAmoutJars = (document.getElementById("tomatoesAmountJars"));
         tomatoesAmoutJars.innerHTML =
             "Tomatoes: " + JSON.stringify(capacityJars.tomatoes);
-    }
-    function callCustomers() {
-        let customerClass = new doenerTrainer.customers(new doenerTrainer.Vector(0, 515));
-        customerClass.draw();
-        // console.log(customerClass.preferences);
-        moveablesCustomer.push(customerClass);
-        customer = customerClass;
     }
     function callOrder() {
         let meat = (document.getElementById("ingredientMeat"));
@@ -420,44 +408,72 @@ var doenerTrainer;
             let randomMood = Math.floor(Math.random() * moods.length);
             customer.mood = moods[randomMood];
             console.log("nicht happy");
-            let breadDiv = (document.getElementById("breadDiv"));
-            let imageBread = (document.getElementById("Bread"));
-            breadDiv.removeChild(imageBread);
-            // function removeOrderImage() {
-            //   let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-            //     document.getElementById("ingredientsDiv")
-            //   );
-            //   let image: HTMLImageElement = <HTMLImageElement>(
-            //     document.getElementById("orderImage")
-            //   );
-            //   ingredientsDiv.removeChild(image);
-            // }
-            // for (var i = 0; i < 15; i++) {
-            //   removeOrderImage();
-            // }
         }
+        let breadDiv = (document.getElementById("breadDiv"));
+        let imageBread = (document.getElementById("Bread"));
+        breadDiv.removeChild(imageBread);
+        let breadAndIngredients = (document.getElementById("breadAndIngredients"));
+        let ingredientsDiv = (document.getElementById("ingredientsDiv"));
+        breadAndIngredients.removeChild(ingredientsDiv);
+        breadAndIngredients.removeChild(breadDiv);
+        let addIngredientsDiv = (document.createElement("div"));
+        addIngredientsDiv.setAttribute("id", "ingredientsDiv");
+        breadAndIngredients.appendChild(addIngredientsDiv);
+        breadAndIngredients.appendChild(breadDiv);
+        orderAnalyser = {
+            meat: false,
+            lettuce: false,
+            mushrooms: false,
+            onion: false,
+            tomato: false,
+        };
+        moveablesCustomer = [];
+        customer.velocity = new doenerTrainer.Vector(6, 0);
+        customer.zielposition.x = 10000;
+        moveablesCustomer.push(customer);
+        verkaufteGerichte++;
+        let verkaufteGerichteText = (document.getElementById("verkaufteGerichte"));
+        verkaufteGerichteText.innerHTML =
+            "verkaufte Gerichte: " + verkaufteGerichte;
+        callNewCustomer();
     }
     doenerTrainer.analyseOrder = analyseOrder;
-    // let closestWorker: workers = moveablesWorker[0];
-    // let x: number = _event.offsetX;
-    // let y: number = _event.offsetY;
-    // let distanceVektorClosestWorker: number = 10000;
-    // console.log(x + "x " + y + " y");
-    // for (let item of moveablesWorker) {
-    //   let distance: Vector = new Vector(0, 0);
-    //   distance.x = x - item.position.x;
-    //   distance.y = y - item.position.y;
-    //   let distanceVektor: number = Math.sqrt(
-    //     Math.pow(distance.x, 2) + Math.pow(distance.y, 2)
-    //   );
-    //   if (distanceVektor < distanceVektorClosestWorker) {
-    //     closestWorker = item;
-    //     distanceVektorClosestWorker = distanceVektor;
-    //   }
-    // }
-    // closestWorker.velocity = new Vector(0, 0);
-    // console.log(
-    //   "x! " + closestWorker.position.x + "y! " + closestWorker.position.y
-    // );
+    function callNewCustomer() {
+        console.log("new customer");
+        setTimeout(callCustomers, 3000);
+    }
+    function callCustomers() {
+        let customerClass = new doenerTrainer.Customers(new doenerTrainer.Vector(600, 0), new doenerTrainer.Vector(0, 515));
+        customerClass.draw();
+        // console.log(customerClass.preferences);
+        moveablesCustomer.push(customerClass);
+        customer = customerClass;
+    }
+    function deleteItemfromOrder() {
+        let ingredientsDiv = (document.getElementById("ingredientsDiv"));
+        let orderImage = (document.getElementById("orderImage"));
+        if (orderImage.getAttribute("class") === "orderImageMeat") {
+            orderAnalyser.meat = false;
+        }
+        else if (orderImage.getAttribute("class") === "orderImageLettuce") {
+            orderAnalyser.lettuce = false;
+        }
+        else if (orderImage.getAttribute("class") === "orderImageMushrooms") {
+            orderAnalyser.mushrooms = false;
+        }
+        else if (orderImage.getAttribute("class") === "orderImageOnion") {
+            orderAnalyser.onion = false;
+        }
+        else if (orderImage.getAttribute("class") === "orderImageTomato") {
+            orderAnalyser.tomato = false;
+        }
+        ingredientsDiv.removeChild(orderImage);
+    }
+    function disableForm() {
+        let forms = document.querySelectorAll("form");
+        for (let item of forms[0]) {
+            item.setAttribute("disabled", "");
+        }
+    }
 })(doenerTrainer || (doenerTrainer = {}));
 //# sourceMappingURL=main.js.map

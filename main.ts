@@ -1,11 +1,4 @@
-// Delete ingredients im Order
-// finishOrder -> nex Customer (setTimeout???)
-// finishOrder -> delete alle imgs im Order
-// finishOrder -> verkaufte Gerichte innerHTML
-// CustomersMood wird schlechter (setTimeout???)
-
-// disable formElements nach dem Start
-// jars erst nach dem Start anklickbar -> check
+// CustomersMood wird schlechter ---> fast fertig noch für andere cases machen
 
 // jars nachfüllen braucht Zeit (setTimeout???)
 // jars nachfüllen -> Mitarbeiter geht hin und "fühlt sie nach"
@@ -16,11 +9,12 @@
 
 namespace doenerTrainer {
   window.addEventListener("load", handleLoad);
-  let imgData: any;
+  let imgData: ImageData;
 
   export let crc2: CanvasRenderingContext2D;
   let moveablesWorker: Moveable[] = [];
   let moveablesCustomer: Moveable[] = [];
+
   let capacity: Capacity = {
     meat: 1,
     lettuce: 1,
@@ -37,8 +31,8 @@ namespace doenerTrainer {
     tomatoes: 1,
   };
 
-  let customer: customers;
-  let orderAnalyser: preferences = {
+  let customer: Customers;
+  let orderAnalyser: Preferences = {
     meat: false,
     lettuce: false,
     mushrooms: false,
@@ -48,6 +42,8 @@ namespace doenerTrainer {
 
   let numberWorkers: number = 0;
   let clickStart: number = 0;
+  let verkaufteGerichte: number = 0;
+  // let rohmateriallager: number = 0;
 
   function handleLoad(_event: Event): void {
     // all handleLoad
@@ -75,7 +71,6 @@ namespace doenerTrainer {
     finishButton.disabled = true;
 
     finishButton.addEventListener("click", analyseOrder);
-    // finishButton.addEventListener("click", callNewCustomer);
 
     let startButton: HTMLButtonElement = <HTMLButtonElement>(
       document.getElementById("start")
@@ -84,6 +79,11 @@ namespace doenerTrainer {
     if (numberWorkers === 0) {
       startButton.disabled = true;
     }
+
+    let deleteButton: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("deleteIngredientButton")
+    );
+    deleteButton.addEventListener("click", deleteItemfromOrder);
 
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
@@ -112,7 +112,9 @@ namespace doenerTrainer {
       let image: HTMLImageElement = <HTMLImageElement>(
         document.createElement("img")
       );
+
       image.setAttribute("id", "orderImage");
+      image.setAttribute("class", "orderImageMeat");
       image.setAttribute("src", "pics/ingredient_meat.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.meat = true;
@@ -137,6 +139,7 @@ namespace doenerTrainer {
         document.createElement("img")
       );
       image.setAttribute("id", "orderImage");
+      image.setAttribute("class", "orderImageLettuce");
       image.setAttribute("src", "pics/ingredient_lettuce.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.lettuce = true;
@@ -161,6 +164,7 @@ namespace doenerTrainer {
         document.createElement("img")
       );
       image.setAttribute("id", "orderImage");
+      image.setAttribute("class", "orderImageMushrooms");
       image.setAttribute("src", "pics/ingredient_mushrooms.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.mushrooms = true;
@@ -185,6 +189,7 @@ namespace doenerTrainer {
         document.createElement("img")
       );
       image.setAttribute("id", "orderImage");
+      image.setAttribute("class", "orderImageOnion");
       image.setAttribute("src", "pics/ingredient_onion.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.onion = true;
@@ -209,6 +214,7 @@ namespace doenerTrainer {
         document.createElement("img")
       );
       image.setAttribute("id", "orderImage");
+      image.setAttribute("class", "orderImageTomato");
       image.setAttribute("src", "pics/ingredient_tomato.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.tomato = true;
@@ -238,7 +244,6 @@ namespace doenerTrainer {
       capacityJars.tomatoes = parseInt(target.value);
       console.log(capacityJars);
     }
-
     if (numberWorkers > 0) {
       startButton.disabled = false;
     }
@@ -247,12 +252,6 @@ namespace doenerTrainer {
   function refreshPage(): void {
     window.location.reload();
   }
-
-  // function callNewCustomer(): void {
-  //   console.log("new customer");
-  //   const myTimeout: number = setTimeout(callCustomers, 5000);
-  //   clearTimeout(myTimeout);
-  // }
 
   function start(): void {
     if (numberWorkers > 10) {
@@ -271,17 +270,20 @@ namespace doenerTrainer {
     callCustomers();
     displayCapacity();
     console.log(customer.preferences);
-    // callNewCustomer();
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>(
       document.querySelector("canvas")
     );
     canvas.addEventListener("click", canvasClicked);
+    disableForm();
   }
 
   function callWorker(): void {
     let randomX: number = Math.floor(Math.random() * 600) + 50;
     let randomY: number = Math.floor(Math.random() * 230) + 170;
-    let workerClass: workers = new workers(new Vector(randomX, randomY));
+    let workerClass: Workers = new Workers(
+      new Vector(randomX, randomY),
+      new Vector(0, 0)
+    );
     workerClass.draw();
     moveablesWorker.push(workerClass);
   }
@@ -304,7 +306,11 @@ namespace doenerTrainer {
     //Meat angeklickt
     if (y > 30 && y < 120 && x > 150 && x < 180) {
       if (capacityJars.meat === 0) {
-        console.log("jar leer");
+        ////////////////////////////////////////////////////////// nachfüllen
+        let jarNachfuellen: HTMLButtonElement = <HTMLButtonElement>(
+          document.getElementById("jarNachfuellen")
+        );
+        jarNachfuellen.innerHTML = "Meat nachfüllen";
       } else {
         capacity.meat = capacity.meat + 1;
         capacityJars.meat = capacityJars.meat - 1;
@@ -320,7 +326,6 @@ namespace doenerTrainer {
     // Lettuce angeklickt
     if (y > 30 && y < 120 && x > 250 && x < 310) {
       if (capacityJars.lettuce === 0) {
-        console.log("jar leer");
       } else {
         capacity.lettuce = capacity.lettuce + 1;
         capacityJars.lettuce = capacityJars.lettuce - 1;
@@ -333,11 +338,9 @@ namespace doenerTrainer {
         }
       }
     }
-
     //Rooms angeklickt
     if (y > 30 && y < 120 && x > 350 && x < 410) {
       if (capacityJars.mushrooms === 0) {
-        console.log("jar leer");
       } else {
         capacity.mushrooms = capacity.mushrooms + 1;
         capacityJars.mushrooms = capacityJars.mushrooms - 1;
@@ -353,7 +356,6 @@ namespace doenerTrainer {
     // Onion angeklickt
     if (y > 30 && y < 120 && x > 450 && x < 510) {
       if (capacityJars.onions === 0) {
-        console.log("jar leer");
       } else {
         capacity.onions = capacity.onions + 1;
         capacityJars.onions = capacityJars.onions - 1;
@@ -369,7 +371,6 @@ namespace doenerTrainer {
     // Tomato angeklickt
     if (y > 30 && y < 120 && x > 550 && x < 610) {
       if (capacityJars.tomatoes === 0) {
-        console.log("jar leer");
       } else {
         capacity.tomatoes = capacity.tomatoes + 1;
         capacityJars.tomatoes = capacityJars.tomatoes - 1;
@@ -440,14 +441,6 @@ namespace doenerTrainer {
     );
     tomatoesAmoutJars.innerHTML =
       "Tomatoes: " + JSON.stringify(capacityJars.tomatoes);
-  }
-
-  function callCustomers(): void {
-    let customerClass: customers = new customers(new Vector(0, 515));
-    customerClass.draw();
-    // console.log(customerClass.preferences);
-    moveablesCustomer.push(customerClass);
-    customer = customerClass;
   }
 
   export function callOrder(): void {
@@ -556,55 +549,97 @@ namespace doenerTrainer {
       console.log("happy");
     } else {
       let moods: string[] = ["neutral", "mad"];
-      let randomMood = Math.floor(Math.random() * moods.length);
+      let randomMood: number = Math.floor(Math.random() * moods.length);
       customer.mood = moods[randomMood];
       console.log("nicht happy");
-
-      let breadDiv: HTMLDivElement = <HTMLDivElement>(
-        document.getElementById("breadDiv")
-      );
-      let imageBread: HTMLImageElement = <HTMLImageElement>(
-        document.getElementById("Bread")
-      );
-      breadDiv.removeChild(imageBread);
-
-      // function removeOrderImage() {
-      //   let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-      //     document.getElementById("ingredientsDiv")
-      //   );
-      //   let image: HTMLImageElement = <HTMLImageElement>(
-      //     document.getElementById("orderImage")
-      //   );
-      //   ingredientsDiv.removeChild(image);
-      // }
-      // for (var i = 0; i < 15; i++) {
-      //   removeOrderImage();
-      // }
     }
+    let breadDiv: HTMLDivElement = <HTMLDivElement>(
+      document.getElementById("breadDiv")
+    );
+    let imageBread: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("Bread")
+    );
+    breadDiv.removeChild(imageBread);
+
+    let breadAndIngredients: HTMLDivElement = <HTMLDivElement>(
+      document.getElementById("breadAndIngredients")
+    );
+    let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
+      document.getElementById("ingredientsDiv")
+    );
+    breadAndIngredients.removeChild(ingredientsDiv);
+    breadAndIngredients.removeChild(breadDiv);
+
+    let addIngredientsDiv: HTMLDivElement = <HTMLDivElement>(
+      document.createElement("div")
+    );
+    addIngredientsDiv.setAttribute("id", "ingredientsDiv");
+    breadAndIngredients.appendChild(addIngredientsDiv);
+    breadAndIngredients.appendChild(breadDiv);
+    orderAnalyser = {
+      meat: false,
+      lettuce: false,
+      mushrooms: false,
+      onion: false,
+      tomato: false,
+    };
+    moveablesCustomer = [];
+    customer.velocity = new Vector(6, 0);
+    customer.zielposition.x = 10000;
+    moveablesCustomer.push(customer);
+    verkaufteGerichte++;
+    let verkaufteGerichteText: HTMLParagraphElement = <HTMLParagraphElement>(
+      document.getElementById("verkaufteGerichte")
+    );
+
+    verkaufteGerichteText.innerHTML =
+      "verkaufte Gerichte: " + verkaufteGerichte;
+    callNewCustomer();
   }
 
-  // let closestWorker: workers = moveablesWorker[0];
-  // let x: number = _event.offsetX;
-  // let y: number = _event.offsetY;
-  // let distanceVektorClosestWorker: number = 10000;
+  function callNewCustomer(): void {
+    console.log("new customer");
+    setTimeout(callCustomers, 3000);
+  }
 
-  // console.log(x + "x " + y + " y");
-  // for (let item of moveablesWorker) {
-  //   let distance: Vector = new Vector(0, 0);
-  //   distance.x = x - item.position.x;
-  //   distance.y = y - item.position.y;
+  function callCustomers(): void {
+    let customerClass: Customers = new Customers(
+      new Vector(600, 0),
+      new Vector(0, 515)
+    );
+    customerClass.draw();
+    // console.log(customerClass.preferences);
+    moveablesCustomer.push(customerClass);
+    customer = customerClass;
+  }
 
-  //   let distanceVektor: number = Math.sqrt(
-  //     Math.pow(distance.x, 2) + Math.pow(distance.y, 2)
-  //   );
+  function deleteItemfromOrder(): void {
+    let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
+      document.getElementById("ingredientsDiv")
+    );
+    let orderImage: HTMLImageElement = <HTMLImageElement>(
+      document.getElementById("orderImage")
+    );
 
-  //   if (distanceVektor < distanceVektorClosestWorker) {
-  //     closestWorker = item;
-  //     distanceVektorClosestWorker = distanceVektor;
-  //   }
-  // }
-  // closestWorker.velocity = new Vector(0, 0);
-  // console.log(
-  //   "x! " + closestWorker.position.x + "y! " + closestWorker.position.y
-  // );
+    if (orderImage.getAttribute("class") === "orderImageMeat") {
+      orderAnalyser.meat = false;
+    } else if (orderImage.getAttribute("class") === "orderImageLettuce") {
+      orderAnalyser.lettuce = false;
+    } else if (orderImage.getAttribute("class") === "orderImageMushrooms") {
+      orderAnalyser.mushrooms = false;
+    } else if (orderImage.getAttribute("class") === "orderImageOnion") {
+      orderAnalyser.onion = false;
+    } else if (orderImage.getAttribute("class") === "orderImageTomato") {
+      orderAnalyser.tomato = false;
+    }
+
+    ingredientsDiv.removeChild(orderImage);
+  }
+
+  function disableForm(): void {
+    let forms: NodeListOf<HTMLFormElement> = document.querySelectorAll("form");
+    for (let item of forms[0]) {
+      item.setAttribute("disabled", "");
+    }
+  }
 }

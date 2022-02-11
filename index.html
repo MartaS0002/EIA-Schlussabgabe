@@ -13,7 +13,6 @@
     <script src="workers.js"></script>
     <script src="customers.js"></script>
     <script src="order.js"></script>
-    <!-- <script src="ingredients.js"></script> -->
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -35,43 +34,40 @@
         <h2>Döner-Settings</h2>
         <form>
             Anzahl der Mitarbeiter
-            <input id="myNumber" name="numberWorkers" type="number" step="1" min="1" max="10" placeholder="0"
-            abled>
+            <input id="myNumber" name="numberWorkers" type="number" step="1" min="1" max="10" placeholder="0">
             <br>
             Kunden im Durchschnitt
-            <input id="myNumber" name="myNumber" type="number" step="1" min="1" max="10" placeholder="0"
-            abled>
+            <input id="myNumber" name="myNumber" type="number" step="1" min="1" max="10" placeholder="0">
             <br>
             Kapazitäten von Rohmateriallager
-            <input type="range" name="rohmateriallager" min="1" max="10" value="1" step="1"
-            abled/>
+            <input type="range" name="rohmateriallager" min="1" max="10" value="1" step="1" />
             <br>
             Kapazitäten von Behältnissen
-            <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1"
-            abled/>
+            <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1" />
             <br>
             Leerlauf
-            <input type="range" name="maxSprint" min="1" max="10" value="1" step="1" 
-            abled/>
+            <input type="range" name="leerlauf" min="1" max="5" value="1" step="1" />
             <br>
             <button type="button" id="start">Start</button>
-            <button type="button">Refresh page</button>
         </form>
+        <div class="refresh">
+            <button  type="button">Refresh page</button>
+        </div>
     </div>
 
     <div class="info">
 
         <div class="stunden">
             <p>Stunden:</p>
-           </div>
-           <div class="sold">
-            <p>verkaufte Gerichte:</p>
-           </div>
-           <div class="placeholder">
+        </div>
+        <div class="sold">
+            <p id="verkaufteGerichte">verkaufte Gerichte: 0</p>
+        </div>
+        <div class="placeholder">
             <p>placeholder</p>
-           </div>
+        </div>
     </div>
-  
+
 
     <div class="flexBox">
         <div class="capacity">
@@ -87,6 +83,9 @@
             <p id="mushroomsAmountJars"></p>
             <p id="onionAmountJars"></p>
             <p id="tomatoesAmountJars"></p>
+            <div class="jarNachfuellen">
+                <button id="jarNachfuellen">Nachfüllen</button>
+            </div>
         </div>
         <div class="counterDiv">
             <div class="containerIngredients">
@@ -107,16 +106,15 @@
                 <p id="ichWill"></p>
                 <p id="ichWillNicht"></p>
             </div>
-            <div class="breadAndIngredients">
+            <div class="breadAndIngredients" id="breadAndIngredients">
                 <div id="ingredientsDiv"></div>
                 <div id="breadDiv"></div>
             </div>
             <div class="btn-group">
                 <button class="finishButton" id="finishButton">Finish Order</button>
-                <button class="deleteIngredientButton">Delete</button>
+                <button id="deleteIngredientButton">Delete</button>
             </div>
         </div>
-
     </div>
 
 </body>

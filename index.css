@@ -52,6 +52,11 @@ form input {
   margin-bottom: 40px;
 }
 
+.refresh {
+text-align: center;
+margin-left: 20%;
+}
+
 canvas {
   position: relative;
   margin-top: 25px;
@@ -139,7 +144,8 @@ button:disabled {
 }
 
 .containerIngredients {
-  display: flex; /* or inline-flex */
+  display: flex;
+  /* or inline-flex */
   flex-direction: column;
   margin-left: 20px;
   margin-top: 10px;
@@ -156,10 +162,12 @@ button:disabled {
   width: 200px;
   height: 170px;
 }
+
 #orderImage {
   height: 50px;
   width: 50px;
 }
+
 #ingredientsDiv {
   position: relative;
   margin-left: 40px;

@@ -18,22 +18,22 @@ namespace doenerTrainer {
       crc2.stroke();
       crc2.closePath();
     }
-    
+
     public displayJars(): void {
-      
-      let imageJarMeat: any = document.getElementById("jarMeat");
+
+      let imageJarMeat: HTMLImageElement = <HTMLImageElement>document.getElementById("jarMeat");
       crc2.drawImage(imageJarMeat, 150, 30, 60, 90);
 
-      let imageJarLettuce: any = document.getElementById("jarLettuce");
+      let imageJarLettuce: HTMLImageElement = <HTMLImageElement>document.getElementById("jarLettuce");
       crc2.drawImage(imageJarLettuce, 250, 30, 60, 90);
 
-      let imageJarMushrooms: any = document.getElementById("jarMushrooms");
+      let imageJarMushrooms: HTMLImageElement = <HTMLImageElement>document.getElementById("jarMushrooms");
       crc2.drawImage(imageJarMushrooms, 350, 30, 60, 90);
 
-      let imageJarOnions: any = document.getElementById("jarOnions");
+      let imageJarOnions: HTMLImageElement = <HTMLImageElement>document.getElementById("jarOnions");
       crc2.drawImage(imageJarOnions, 450, 30, 60, 90);
 
-      let imageJarTomatos: any = document.getElementById("jarTomatos");
+      let imageJarTomatos: HTMLImageElement = <HTMLImageElement>document.getElementById("jarTomatos");
       crc2.drawImage(imageJarTomatos, 550, 30, 60, 90);
     }
   }
