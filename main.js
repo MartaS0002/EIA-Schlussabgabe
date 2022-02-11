@@ -1,4 +1,15 @@
 "use strict";
+// Delete ingredients im Order
+// finishOrder -> nex Customer (setTimeout???)
+// finishOrder -> delete alle imgs im Order
+// finishOrder -> verkaufte Gerichte innerHTML
+// CustomersMood wird schlechter (setTimeout???)
+// disable formElements nach dem Start
+// jars erst nach dem Start anklickbar -> check
+// jars nachfüllen braucht Zeit (setTimeout???)
+// jars nachfüllen -> Mitarbeiter geht hin und "fühlt sie nach"
+// ingredients (Theke) nachfüllen braucht Zeit (setTimeout???)
+// displayMood Mitarbeiter
 var doenerTrainer;
 (function (doenerTrainer) {
     window.addEventListener("load", handleLoad);
@@ -36,15 +47,15 @@ var doenerTrainer;
             return;
         doenerTrainer.crc2 = canvas.getContext("2d");
         drawBackground();
-        canvas.addEventListener("click", canvasClicked);
         let forms = document.querySelectorAll("form");
         forms[0].addEventListener("change", handleChange);
         let button = document.querySelectorAll("button");
         button[0].addEventListener("click", start); // button click -> start simulation
         button[1].addEventListener("click", refreshPage); // button click -> refreshPage
         let finishButton = (document.getElementById("finishButton"));
+        finishButton.disabled = true;
         finishButton.addEventListener("click", analyseOrder);
-        // drawIngredients();
+        // finishButton.addEventListener("click", callNewCustomer);
         let startButton = (document.getElementById("start"));
         if (numberWorkers === 0) {
             startButton.disabled = true;
@@ -175,6 +186,11 @@ var doenerTrainer;
     function refreshPage() {
         window.location.reload();
     }
+    // function callNewCustomer(): void {
+    //   console.log("new customer");
+    //   const myTimeout: number = setTimeout(callCustomers, 5000);
+    //   clearTimeout(myTimeout);
+    // }
     function start() {
         if (numberWorkers > 10) {
             numberWorkers = 10;
@@ -190,6 +206,9 @@ var doenerTrainer;
         callCustomers();
         displayCapacity();
         console.log(customer.preferences);
+        // callNewCustomer();
+        let canvas = (document.querySelector("canvas"));
+        canvas.addEventListener("click", canvasClicked);
     }
     function callWorker() {
         let randomX = Math.floor(Math.random() * 600) + 50;
@@ -382,6 +401,8 @@ var doenerTrainer;
         imageBread.setAttribute("src", bread[randomBread]);
         imageBread.setAttribute("id", "Bread");
         breadDiv.appendChild(imageBread);
+        let finishButton = (document.getElementById("finishButton"));
+        finishButton.disabled = false;
     }
     doenerTrainer.callOrder = callOrder;
     function analyseOrder() {
@@ -402,14 +423,18 @@ var doenerTrainer;
             let breadDiv = (document.getElementById("breadDiv"));
             let imageBread = (document.getElementById("Bread"));
             breadDiv.removeChild(imageBread);
-            function removeOrderImage() {
-                let ingredientsDiv = (document.getElementById("ingredientsDiv"));
-                let image = (document.getElementById("orderImage"));
-                ingredientsDiv.removeChild(image);
-            }
-            for (var i = 0; i < 15; i++) {
-                removeOrderImage();
-            }
+            // function removeOrderImage() {
+            //   let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
+            //     document.getElementById("ingredientsDiv")
+            //   );
+            //   let image: HTMLImageElement = <HTMLImageElement>(
+            //     document.getElementById("orderImage")
+            //   );
+            //   ingredientsDiv.removeChild(image);
+            // }
+            // for (var i = 0; i < 15; i++) {
+            //   removeOrderImage();
+            // }
         }
     }
     doenerTrainer.analyseOrder = analyseOrder;

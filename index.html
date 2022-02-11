@@ -35,26 +35,44 @@
         <h2>Döner-Settings</h2>
         <form>
             Anzahl der Mitarbeiter
-            <input id="myNumber" name="numberWorkers" type="number" step="1" min="1" max="10" placeholder="0">
+            <input id="myNumber" name="numberWorkers" type="number" step="1" min="1" max="10" placeholder="0"
+            abled>
             <br>
             Kunden im Durchschnitt
-            <input id="myNumber" name="myNumber" type="number" step="1" min="1" max="10" placeholder="0">
+            <input id="myNumber" name="myNumber" type="number" step="1" min="1" max="10" placeholder="0"
+            abled>
             <br>
             Kapazitäten von Rohmateriallager
-            <input type="range" name="rohmateriallager" min="1" max="10" value="1" step="1" />
+            <input type="range" name="rohmateriallager" min="1" max="10" value="1" step="1"
+            abled/>
             <br>
             Kapazitäten von Behältnissen
-            <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1" />
+            <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1"
+            abled/>
             <br>
             Leerlauf
-            <input type="range" name="maxSprint" min="1" max="10" value="1" step="1" />
+            <input type="range" name="maxSprint" min="1" max="10" value="1" step="1" 
+            abled/>
             <br>
             <button type="button" id="start">Start</button>
             <button type="button">Refresh page</button>
         </form>
     </div>
 
-    <!-- <p class="stunden">Stunden:</p> -->
+    <div class="info">
+
+        <div class="stunden">
+            <p>Stunden:</p>
+           </div>
+           <div class="sold">
+            <p>verkaufte Gerichte:</p>
+           </div>
+           <div class="placeholder">
+            <p>placeholder</p>
+           </div>
+    </div>
+  
+
     <div class="flexBox">
         <div class="capacity">
             <h2>Behältnisse</h2>

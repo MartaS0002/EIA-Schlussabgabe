@@ -1,3 +1,19 @@
+// Delete ingredients im Order
+// finishOrder -> nex Customer (setTimeout???)
+// finishOrder -> delete alle imgs im Order
+// finishOrder -> verkaufte Gerichte innerHTML
+// CustomersMood wird schlechter (setTimeout???)
+
+// disable formElements nach dem Start
+// jars erst nach dem Start anklickbar -> check
+
+// jars nachfüllen braucht Zeit (setTimeout???)
+// jars nachfüllen -> Mitarbeiter geht hin und "fühlt sie nach"
+
+// ingredients (Theke) nachfüllen braucht Zeit (setTimeout???)
+
+// displayMood Mitarbeiter
+
 namespace doenerTrainer {
   window.addEventListener("load", handleLoad);
   let imgData: any;
@@ -41,7 +57,6 @@ namespace doenerTrainer {
     if (!canvas) return;
     crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
     drawBackground();
-    canvas.addEventListener("click", canvasClicked);
 
     let forms: NodeListOf<HTMLFormElement> = document.querySelectorAll("form");
     forms[0].addEventListener("change", handleChange);
@@ -57,9 +72,10 @@ namespace doenerTrainer {
       document.getElementById("finishButton")
     );
 
-    finishButton.addEventListener("click", analyseOrder);
+    finishButton.disabled = true;
 
-    // drawIngredients();
+    finishButton.addEventListener("click", analyseOrder);
+    // finishButton.addEventListener("click", callNewCustomer);
 
     let startButton: HTMLButtonElement = <HTMLButtonElement>(
       document.getElementById("start")
@@ -232,6 +248,12 @@ namespace doenerTrainer {
     window.location.reload();
   }
 
+  // function callNewCustomer(): void {
+  //   console.log("new customer");
+  //   const myTimeout: number = setTimeout(callCustomers, 5000);
+  //   clearTimeout(myTimeout);
+  // }
+
   function start(): void {
     if (numberWorkers > 10) {
       numberWorkers = 10;
@@ -249,6 +271,11 @@ namespace doenerTrainer {
     callCustomers();
     displayCapacity();
     console.log(customer.preferences);
+    // callNewCustomer();
+    let canvas: HTMLCanvasElement = <HTMLCanvasElement>(
+      document.querySelector("canvas")
+    );
+    canvas.addEventListener("click", canvasClicked);
   }
 
   function callWorker(): void {
@@ -509,6 +536,11 @@ namespace doenerTrainer {
     imageBread.setAttribute("src", bread[randomBread]);
     imageBread.setAttribute("id", "Bread");
     breadDiv.appendChild(imageBread);
+
+    let finishButton: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("finishButton")
+    );
+    finishButton.disabled = false;
   }
 
   export function analyseOrder(): void {
@@ -536,18 +568,18 @@ namespace doenerTrainer {
       );
       breadDiv.removeChild(imageBread);
 
-      function removeOrderImage() {
-        let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-          document.getElementById("ingredientsDiv")
-        );
-        let image: HTMLImageElement = <HTMLImageElement>(
-          document.getElementById("orderImage")
-        );
-        ingredientsDiv.removeChild(image);
-      }
-      for (var i = 0; i < 15; i++) {
-        removeOrderImage();
-      }
+      // function removeOrderImage() {
+      //   let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
+      //     document.getElementById("ingredientsDiv")
+      //   );
+      //   let image: HTMLImageElement = <HTMLImageElement>(
+      //     document.getElementById("orderImage")
+      //   );
+      //   ingredientsDiv.removeChild(image);
+      // }
+      // for (var i = 0; i < 15; i++) {
+      //   removeOrderImage();
+      // }
     }
   }
 
