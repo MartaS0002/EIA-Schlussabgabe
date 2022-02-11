@@ -1,5 +1,5 @@
 namespace doenerTrainer {
-    interface preferences {
+    export interface preferences {
         meat: boolean;
         lettuce: boolean;
         mushrooms: boolean;

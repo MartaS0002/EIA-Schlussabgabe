@@ -13,6 +13,7 @@
     <script src="workers.js"></script>
     <script src="customers.js"></script>
     <script src="order.js"></script>
+    <!-- <script src="ingredients.js"></script> -->
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -28,6 +29,7 @@
         <img id="jarOnions" src="pics/jar_onions.png">
         <img id="jarTomatos" src="pics/jar_tomatos.png">
     </div>
+
     <h1>Welcome to Döner-Trainer</h1>
     <div class="settings">
         <h2>Döner-Settings</h2>
@@ -52,10 +54,21 @@
         </form>
     </div>
 
-    <p class="stunden">Stunden:</p>
-
+    <!-- <p class="stunden">Stunden:</p> -->
     <div class="flexBox">
         <div class="capacity">
+            <h2>Behältnisse</h2>
+            <p id="meatAmount"></p>
+            <p id="lettuceAmount"></p>
+            <p id="mushroomsAmount"></p>
+            <p id="onionAmount"></p>
+            <p id="tomatoesAmount"></p>
+            <h2>Jars</h2>
+            <p id="meatAmountJars"></p>
+            <p id="lettuceAmountJars"></p>
+            <p id="mushroomsAmountJars"></p>
+            <p id="onionAmountJars"></p>
+            <p id="tomatoesAmountJars"></p>
         </div>
         <div class="counterDiv">
             <div class="containerIngredients">
@@ -72,10 +85,16 @@
         </div>
         <div class="order" id="order">
             <h2>Order</h2>
-            <p id="ichWill"></p>
-            <p id="ichWillNicht"></p>
+            <div class="orderList" id="orderList">
+                <p id="ichWill"></p>
+                <p id="ichWillNicht"></p>
+            </div>
+            <div class="breadAndIngredients">
+                <div id="ingredientsDiv"></div>
+                <div id="breadDiv"></div>
+            </div>
             <div class="btn-group">
-                <button class="finishButton">Finish Order</button>
+                <button class="finishButton" id="finishButton">Finish Order</button>
                 <button class="deleteIngredientButton">Delete</button>
             </div>
         </div>

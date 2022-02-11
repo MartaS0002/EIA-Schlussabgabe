@@ -18,7 +18,7 @@ namespace doenerTrainer {
       crc2.stroke();
       crc2.closePath();
     }
-
+    
     public displayJars(): void {
       
       let imageJarMeat: any = document.getElementById("jarMeat");

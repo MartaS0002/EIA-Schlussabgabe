@@ -155,3 +155,13 @@ width: 60px;
   width: 200px;
   height: 170px;
 }
+#orderImage {
+  height:50px;
+  width: 50px;
+}
+#ingredientsDiv {
+  position: relative;
+  margin-left: 40px;
+  margin-right: 40px;
+  top:70px;
+}
