@@ -52,11 +52,6 @@ form input {
   margin-bottom: 40px;
 }
 
-.refresh {
-text-align: center;
-margin-left: 20%;
-}
-
 canvas {
   position: relative;
   margin-top: 25px;

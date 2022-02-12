@@ -14,7 +14,7 @@ namespace doenerTrainer {
   export let crc2: CanvasRenderingContext2D;
   let moveablesWorker: Moveable[] = [];
   let moveablesCustomer: Moveable[] = [];
-
+  let moveablesManager: Moveable[] = [];
   let capacity: Capacity = {
     meat: 1,
     lettuce: 1,
@@ -43,7 +43,8 @@ namespace doenerTrainer {
   let numberWorkers: number = 0;
   let clickStart: number = 0;
   let verkaufteGerichte: number = 0;
-  // let rohmateriallager: number = 0;
+  let leerlauf: number = 1;
+  let rohmateriallager: number = 1;
 
   function handleLoad(_event: Event): void {
     // all handleLoad
@@ -237,13 +238,17 @@ namespace doenerTrainer {
       capacity.onions = parseInt(target.value);
       capacity.tomatoes = parseInt(target.value);
     } else if (target.name === "rohmateriallager") {
+      rohmateriallager = parseInt(target.value);
       capacityJars.meat = parseInt(target.value);
       capacityJars.lettuce = parseInt(target.value);
       capacityJars.mushrooms = parseInt(target.value);
       capacityJars.onions = parseInt(target.value);
       capacityJars.tomatoes = parseInt(target.value);
       console.log(capacityJars);
+    } else if (target.name === "leerlauf") {
+      leerlauf = parseInt(target.value);
     }
+
     if (numberWorkers > 0) {
       startButton.disabled = false;
     }
@@ -266,6 +271,14 @@ namespace doenerTrainer {
         );
         startButton.disabled = true;
       }
+
+      let workerClass: Workers = new Workers(
+        new Vector(20, 100),
+        new Vector(20, 100)
+      );
+      workerClass.velocity = new Vector(2, 2);
+      workerClass.draw();
+      moveablesManager.push(workerClass);
     }
     callCustomers();
     displayCapacity();
@@ -274,6 +287,7 @@ namespace doenerTrainer {
       document.querySelector("canvas")
     );
     canvas.addEventListener("click", canvasClicked);
+    leerlaufWorkers();
     disableForm();
   }
 
@@ -298,6 +312,10 @@ namespace doenerTrainer {
       moveable.moveCustomer(1 / 50);
       moveable.draw();
     }
+    for (let moveable of moveablesManager) {
+      moveable.moveManager(1 / 50);
+      moveable.draw();
+    }
   }
 
   function canvasClicked(_event: MouseEvent): void {
@@ -311,6 +329,7 @@ namespace doenerTrainer {
           document.getElementById("jarNachfuellen")
         );
         jarNachfuellen.innerHTML = "Meat nachfüllen";
+        jarNachfuellen.addEventListener("click", workernachfuellen);
       } else {
         capacity.meat = capacity.meat + 1;
         capacityJars.meat = capacityJars.meat - 1;
@@ -395,7 +414,7 @@ namespace doenerTrainer {
       document.getElementById("lettuceAmount")
     );
     lettuceAmout.innerHTML = "Lettuce: " + JSON.stringify(capacity.lettuce);
-
+    
     let mushroomsAmout: HTMLParagraphElement = <HTMLParagraphElement>(
       document.getElementById("mushroomsAmount")
     );
@@ -634,6 +653,52 @@ namespace doenerTrainer {
     }
 
     ingredientsDiv.removeChild(orderImage);
+  }
+
+  function leerlaufWorkers(): void {
+    switch (leerlauf) {
+      case 1: {
+        setTimeout(reduceVelocity, 10000);
+        break;
+      }
+      case 2: {
+        setTimeout(reduceVelocity, 20000);
+        break;
+      }
+      case 3: {
+        setTimeout(reduceVelocity, 30000);
+
+        break;
+      }
+      case 4: {
+        setTimeout(reduceVelocity, 40000);
+
+        break;
+      }
+      case 5: {
+        setTimeout(reduceVelocity, 50000);
+        break;
+      }
+    }
+  }
+  function reduceVelocity(): void {
+    for (let i: number = 0; i < moveablesWorker.length; i++) {
+      moveablesWorker[i].velocity = new Vector(
+        Math.random() * 0.5,
+        Math.random() * 0.5
+      );
+    }
+  }
+
+  function workernachfuellen(): void {
+    console.log(capacityJars.meat);
+    if (capacityJars.meat === 0) {
+      console.log(moveablesManager);
+      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].zielposition = new Vector(200, 100);
+      capacityJars.meat = rohmateriallager;
+      displayCapacity();
+    }
   }
 
   function disableForm(): void {

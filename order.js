@@ -1,13 +1,13 @@
 "use strict";
 var doenerTrainer;
 (function (doenerTrainer) {
-    class Order {
+    class order {
         constructor() {
         }
         showOrder() {
             console.log("order");
         }
     }
-    doenerTrainer.Order = Order;
+    doenerTrainer.order = order;
 })(doenerTrainer || (doenerTrainer = {}));
 //# sourceMappingURL=order.js.map

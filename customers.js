@@ -6,11 +6,11 @@ var doenerTrainer;
             super(_position);
             this.mood = "happy";
             this.preferences = {
-                meat: Math.random() < 0.5,
-                lettuce: Math.random() < 0.5,
-                mushrooms: Math.random() < 0.5,
-                onion: Math.random() < 0.5,
-                tomato: Math.random() < 0.5,
+                meat: (Math.random() < 0.5),
+                lettuce: (Math.random() < 0.5),
+                mushrooms: (Math.random() < 0.5),
+                onion: (Math.random() < 0.5),
+                tomato: (Math.random() < 0.5)
             };
             if (_position)
                 this.position = _position;

@@ -7,7 +7,4 @@ namespace doenerTrainer {
     tomatoes: number;
   }
 
-  export class ingredients {
-    constructor() {}
-  }
 }

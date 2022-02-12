@@ -12,6 +12,7 @@ var doenerTrainer;
         }
         move(_timeslice) {
             let offset = this.velocity.copy();
+            // offset.scale(_timeslice);
             this.position.add(offset);
             if (this.position.x < 50)
                 this.velocity.scale(-1);
@@ -22,8 +23,20 @@ var doenerTrainer;
             if (this.position.y > 400)
                 this.velocity.scale(-1);
         }
+        moveManager(_timeslice) {
+            let offset = this.velocity.copy();
+            // offset.scale(_timeslice);
+            this.position.addCustomer(offset);
+            if (this.position.x < 0) {
+                this.velocity.scale(-1);
+            }
+            if (this.position.x > this.zielposition.x) {
+                this.velocity = new doenerTrainer.Vector(0, 0);
+            }
+        }
         moveCustomer(_timeslice) {
             let offset = this.velocity.copy();
+            // offset.scale(_timeslice);
             this.position.addCustomer(offset);
             if (this.position.x < 0) {
                 this.velocity.scale(-1);

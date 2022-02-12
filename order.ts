@@ -1,5 +1,5 @@
 namespace doenerTrainer {
-    export class Order {
+    export class order {
 
         constructor() {
         }

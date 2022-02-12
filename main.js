@@ -10,6 +10,7 @@ var doenerTrainer;
     let imgData;
     let moveablesWorker = [];
     let moveablesCustomer = [];
+    let moveablesManager = [];
     let capacity = {
         meat: 1,
         lettuce: 1,
@@ -35,7 +36,8 @@ var doenerTrainer;
     let numberWorkers = 0;
     let clickStart = 0;
     let verkaufteGerichte = 0;
-    // let rohmateriallager: number = 0;
+    let leerlauf = 1;
+    let rohmateriallager = 1;
     function handleLoad(_event) {
         // all handleLoad
         let canvas = (document.querySelector("canvas"));
@@ -174,12 +176,16 @@ var doenerTrainer;
             capacity.tomatoes = parseInt(target.value);
         }
         else if (target.name === "rohmateriallager") {
+            rohmateriallager = parseInt(target.value);
             capacityJars.meat = parseInt(target.value);
             capacityJars.lettuce = parseInt(target.value);
             capacityJars.mushrooms = parseInt(target.value);
             capacityJars.onions = parseInt(target.value);
             capacityJars.tomatoes = parseInt(target.value);
             console.log(capacityJars);
+        }
+        else if (target.name === "leerlauf") {
+            leerlauf = parseInt(target.value);
         }
         if (numberWorkers > 0) {
             startButton.disabled = false;
@@ -199,12 +205,17 @@ var doenerTrainer;
                 let startButton = (document.getElementById("start"));
                 startButton.disabled = true;
             }
+            let workerClass = new doenerTrainer.Workers(new doenerTrainer.Vector(20, 100), new doenerTrainer.Vector(20, 100));
+            workerClass.velocity = new doenerTrainer.Vector(2, 2);
+            workerClass.draw();
+            moveablesManager.push(workerClass);
         }
         callCustomers();
         displayCapacity();
         console.log(customer.preferences);
         let canvas = (document.querySelector("canvas"));
         canvas.addEventListener("click", canvasClicked);
+        leerlaufWorkers();
         disableForm();
     }
     function callWorker() {
@@ -224,6 +235,10 @@ var doenerTrainer;
             moveable.moveCustomer(1 / 50);
             moveable.draw();
         }
+        for (let moveable of moveablesManager) {
+            moveable.moveManager(1 / 50);
+            moveable.draw();
+        }
     }
     function canvasClicked(_event) {
         let x = _event.offsetX;
@@ -234,6 +249,7 @@ var doenerTrainer;
                 ////////////////////////////////////////////////////////// nachfüllen
                 let jarNachfuellen = (document.getElementById("jarNachfuellen"));
                 jarNachfuellen.innerHTML = "Meat nachfüllen";
+                jarNachfuellen.addEventListener("click", workernachfuellen);
             }
             else {
                 capacity.meat = capacity.meat + 1;
@@ -468,6 +484,45 @@ var doenerTrainer;
             orderAnalyser.tomato = false;
         }
         ingredientsDiv.removeChild(orderImage);
+    }
+    function leerlaufWorkers() {
+        switch (leerlauf) {
+            case 1: {
+                setTimeout(reduceVelocity, 10000);
+                break;
+            }
+            case 2: {
+                setTimeout(reduceVelocity, 20000);
+                break;
+            }
+            case 3: {
+                setTimeout(reduceVelocity, 30000);
+                break;
+            }
+            case 4: {
+                setTimeout(reduceVelocity, 40000);
+                break;
+            }
+            case 5: {
+                setTimeout(reduceVelocity, 50000);
+                break;
+            }
+        }
+    }
+    function reduceVelocity() {
+        for (let i = 0; i < moveablesWorker.length; i++) {
+            moveablesWorker[i].velocity = new doenerTrainer.Vector(Math.random() * 0.5, Math.random() * 0.5);
+        }
+    }
+    function workernachfuellen() {
+        console.log(capacityJars.meat);
+        if (capacityJars.meat === 0) {
+            console.log(moveablesManager);
+            moveablesManager[0].velocity = new doenerTrainer.Vector(2, 2);
+            moveablesManager[0].zielposition = new doenerTrainer.Vector(200, 100);
+            capacityJars.meat = rohmateriallager;
+            displayCapacity();
+        }
     }
     function disableForm() {
         let forms = document.querySelectorAll("form");
