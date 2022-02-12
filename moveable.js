@@ -4,6 +4,8 @@ var doenerTrainer;
     class Moveable {
         constructor(_zielposition, _position) {
             this.angekommen = false;
+            this.moveBack = false;
+            this.mood = "happy";
             if (_position)
                 this.position = _position.copy();
             else
@@ -27,11 +29,18 @@ var doenerTrainer;
             let offset = this.velocity.copy();
             // offset.scale(_timeslice);
             this.position.addCustomer(offset);
-            if (this.position.x < 0) {
-                this.velocity.scale(-1);
+            // if (this.position.x < 0) {
+            //   this.velocity.scale(-1);
+            // }
+            if (this.moveBack === false) {
+                if (this.position.x > this.zielposition.x) {
+                    this.velocity = new doenerTrainer.Vector(0, 0);
+                }
             }
-            if (this.position.x > this.zielposition.x) {
-                this.velocity = new doenerTrainer.Vector(0, 0);
+            else if (this.moveBack === true) {
+                if (this.position.x < this.zielposition.x) {
+                    this.velocity = new doenerTrainer.Vector(0, 0);
+                }
             }
         }
         moveCustomer(_timeslice) {

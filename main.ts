@@ -1,9 +1,3 @@
-// CustomersMood wird schlechter???
-
-// displayMood Mitarbeiter
-
-// manager return to origin position?????
-
 namespace doenerTrainer {
   window.addEventListener("load", handleLoad);
   let imgData: ImageData;
@@ -17,7 +11,7 @@ namespace doenerTrainer {
     lettuce: 1,
     mushrooms: 1,
     onions: 1,
-    tomatoes: 1,
+    tomatoes: 1
   };
 
   let capacityJars: Capacity = {
@@ -25,7 +19,7 @@ namespace doenerTrainer {
     lettuce: 1,
     mushrooms: 1,
     onions: 1,
-    tomatoes: 1,
+    tomatoes: 1
   };
 
   let customer: Customers;
@@ -34,7 +28,7 @@ namespace doenerTrainer {
     lettuce: false,
     mushrooms: false,
     onion: false,
-    tomato: false,
+    tomato: false
   };
 
   let numberWorkers: number = 0;
@@ -42,6 +36,8 @@ namespace doenerTrainer {
   let verkaufteGerichte: number = 0;
   let leerlauf: number = 1;
   let rohmateriallager: number = 1;
+  let kundenDurchschnitt: number = 1;
+  let timeout: any;
 
   function handleLoad(_event: Event): void {
     // all handleLoad
@@ -89,7 +85,7 @@ namespace doenerTrainer {
   }
 
   function drawBackground(): void {
-    let backgroundClass: canvasBackground = new canvasBackground();
+    let backgroundClass: CanvasBackground = new CanvasBackground();
     backgroundClass.drawBackground();
     backgroundClass.displayJars();
   }
@@ -116,7 +112,6 @@ namespace doenerTrainer {
       image.setAttribute("src", "pics/ingredient_meat.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.meat = true;
-      console.log(orderAnalyser);
     }
   }
 
@@ -141,7 +136,6 @@ namespace doenerTrainer {
       image.setAttribute("src", "pics/ingredient_lettuce.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.lettuce = true;
-      console.log(orderAnalyser);
     }
   }
 
@@ -166,7 +160,6 @@ namespace doenerTrainer {
       image.setAttribute("src", "pics/ingredient_mushrooms.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.mushrooms = true;
-      console.log(orderAnalyser);
     }
   }
 
@@ -191,7 +184,6 @@ namespace doenerTrainer {
       image.setAttribute("src", "pics/ingredient_onion.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.onion = true;
-      console.log(orderAnalyser);
     }
   }
 
@@ -216,7 +208,6 @@ namespace doenerTrainer {
       image.setAttribute("src", "pics/ingredient_tomato.png");
       ingredientsDiv.appendChild(image);
       orderAnalyser.tomato = true;
-      console.log(orderAnalyser);
     }
   }
 
@@ -241,11 +232,12 @@ namespace doenerTrainer {
       capacityJars.mushrooms = parseInt(target.value);
       capacityJars.onions = parseInt(target.value);
       capacityJars.tomatoes = parseInt(target.value);
-      console.log(capacityJars);
+
     } else if (target.name === "leerlauf") {
       leerlauf = parseInt(target.value);
+    } else if (target.name === "kundenDurchschnitt") {
+      kundenDurchschnitt = parseInt(target.value);
     }
-
     if (numberWorkers > 0) {
       startButton.disabled = false;
     }
@@ -271,7 +263,7 @@ namespace doenerTrainer {
 
       let workerClass: Workers = new Workers(
         new Vector(20, 100),
-        new Vector(20, 100)
+        new Vector(20, 100), false
       );
       workerClass.velocity = new Vector(2, 2);
       workerClass.draw();
@@ -279,7 +271,7 @@ namespace doenerTrainer {
     }
     callCustomers();
     displayCapacity();
-    console.log(customer.preferences);
+
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>(
       document.querySelector("canvas")
     );
@@ -293,7 +285,7 @@ namespace doenerTrainer {
     let randomY: number = Math.floor(Math.random() * 230) + 170;
     let workerClass: Workers = new Workers(
       new Vector(randomX, randomY),
-      new Vector(0, 0)
+      new Vector(0, 0), false
     );
     workerClass.draw();
     moveablesWorker.push(workerClass);
@@ -374,9 +366,9 @@ namespace doenerTrainer {
     }
     // Onion angeklickt
     if (y > 30 && y < 120 && x > 450 && x < 510) {
-      jarNachfuellen.innerHTML = "Onions nachfüllen";
-      jarNachfuellen.addEventListener("click", workernachfuellen);
       if (capacityJars.onions === 0) {
+        jarNachfuellen.innerHTML = "Onions nachfüllen";
+        jarNachfuellen.addEventListener("click", workernachfuellen);
       } else {
         capacity.onions = capacity.onions + 1;
         capacityJars.onions = capacityJars.onions - 1;
@@ -528,11 +520,11 @@ namespace doenerTrainer {
     let bread: string[] = [
       "pics/bread_doener.png",
       "pics/bread_pita.png",
-      "pics/bread_lahmacun.png",
+      "pics/bread_lahmacun.png"
     ];
 
     let randomBread: number = Math.floor(Math.random() * bread.length);
-    console.log(randomBread);
+
     let breadDiv: HTMLDivElement = <HTMLDivElement>(
       document.getElementById("breadDiv")
     );
@@ -560,8 +552,7 @@ namespace doenerTrainer {
   }
 
   export function analyseOrder(): void {
-    console.log(customer.preferences);
-    console.log(orderAnalyser);
+    clearTimeout(timeout);
     if (
       customer.preferences.lettuce === orderAnalyser.lettuce &&
       customer.preferences.meat === orderAnalyser.meat &&
@@ -569,12 +560,23 @@ namespace doenerTrainer {
       customer.preferences.onion === orderAnalyser.onion &&
       customer.preferences.tomato === orderAnalyser.tomato
     ) {
-      console.log("happy");
+      customer.mood = "happy";
+      moveablesManager[0].mood = "happy";
+      for (let item of moveablesWorker) {
+        item.mood = "happy";
+      }
+
     } else {
       let moods: string[] = ["neutral", "mad"];
       let randomMood: number = Math.floor(Math.random() * moods.length);
       customer.mood = moods[randomMood];
-      console.log("nicht happy");
+
+      if (customer.mood === "mad") {
+        moveablesManager[0].mood = "sad";
+        for (let item of moveablesWorker) {
+          item.mood = "sad";
+        }
+      }
     }
     let breadDiv: HTMLDivElement = <HTMLDivElement>(
       document.getElementById("breadDiv")
@@ -604,7 +606,7 @@ namespace doenerTrainer {
       lettuce: false,
       mushrooms: false,
       onion: false,
-      tomato: false,
+      tomato: false
     };
     moveablesCustomer = [];
     customer.velocity = new Vector(6, 0);
@@ -621,11 +623,34 @@ namespace doenerTrainer {
   }
 
   function callNewCustomer(): void {
-    console.log("new customer");
-    setTimeout(callCustomers, 3000);
+
+    let timeout: number = 0;
+    switch (kundenDurchschnitt) {
+      case 1: {
+        timeout = 6000;
+        break;
+      }
+      case 2: {
+        timeout = 4000;
+        break;
+      }
+      case 3: {
+        timeout = 1000;
+        break;
+      }
+    }
+
+    setTimeout(callCustomers, timeout);
   }
 
   function callCustomers(): void {
+    timeout = setTimeout(function () {
+      customer.mood = "mad";
+      moveablesManager[0].mood = "sad";
+      for (let item of moveablesWorker) {
+        item.mood = "sad";
+      }},                10000);
+
     let customerClass: Customers = new Customers(
       new Vector(600, 0),
       new Vector(0, 515)
@@ -674,12 +699,12 @@ namespace doenerTrainer {
         break;
       }
       case 4: {
-        setTimeout(reduceVelocity, 50000);
+        setTimeout(reduceVelocity, 20000);
 
         break;
       }
       case 5: {
-        setTimeout(reduceVelocity, 50000);
+        setTimeout(reduceVelocity, 25000);
         break;
       }
     }
@@ -695,6 +720,7 @@ namespace doenerTrainer {
   }
 
   function workernachfuellen(): void {
+    moveablesManager[0].moveBack = false;
     let jarNachfuellen: HTMLButtonElement = <HTMLButtonElement>(
       document.getElementById("jarNachfuellen")
     );
@@ -703,27 +729,36 @@ namespace doenerTrainer {
       moveablesManager[0].zielposition = new Vector(150, 200);
       capacityJars.meat = rohmateriallager;
       setTimeout(displayCapacity, 5000);
+      setTimeout(moveManagerBack, 5000);
     } else if (capacityJars.lettuce === 0) {
       moveablesManager[0].velocity = new Vector(2, 2);
       moveablesManager[0].zielposition = new Vector(250, 200);
-      setTimeout(displayCapacity, 5000);
+
       capacityJars.lettuce = rohmateriallager;
+      setTimeout(displayCapacity, 5000);
+      setTimeout(moveManagerBack, 6000);
     } else if (capacityJars.mushrooms === 0) {
       moveablesManager[0].velocity = new Vector(2, 2);
       moveablesManager[0].zielposition = new Vector(350, 200);
+      setTimeout(moveManagerBack, 5000);
       setTimeout(displayCapacity, 5000);
       capacityJars.mushrooms = rohmateriallager;
+
     } else if (capacityJars.onions === 0) {
       moveablesManager[0].velocity = new Vector(2, 2);
       moveablesManager[0].zielposition = new Vector(450, 200);
-      setTimeout(displayCapacity, 5000);
+      setTimeout(displayCapacity, 8000);
+      setTimeout(moveManagerBack, 8000);
       capacityJars.onions = rohmateriallager;
+
     } else if (capacityJars.tomatoes === 0) {
       moveablesManager[0].velocity = new Vector(2, 2);
       moveablesManager[0].zielposition = new Vector(550, 200);
-      setTimeout(displayCapacity, 5000);
+      setTimeout(displayCapacity, 9000);
+      setTimeout(moveManagerBack, 9000);
       capacityJars.tomatoes = rohmateriallager;
     }
+
     jarNachfuellen.innerHTML = "Nachfüllen";
   }
 
@@ -732,5 +767,10 @@ namespace doenerTrainer {
     for (let item of forms[0]) {
       item.setAttribute("disabled", "");
     }
+  }
+  function moveManagerBack(): void {
+    moveablesManager[0].moveBack = true;
+    moveablesManager[0].velocity = new Vector(-2, -2);
+    moveablesManager[0].zielposition = new Vector(10, 10);
   }
 }

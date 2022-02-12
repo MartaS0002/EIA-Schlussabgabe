@@ -12,7 +12,7 @@
     <script src="canvasBackground.js"></script>
     <script src="workers.js"></script>
     <script src="customers.js"></script>
-    <script src="order.js"></script>
+    <!-- <script src="order.js"></script> -->
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -21,6 +21,7 @@
         <img id="happy" src="pics/customer_happy.png">
         <img id="neutral" src="pics/customer_neutral.png">
         <img id="mad" src="pics/customer_mad.png">
+        <img id="workerIconSad" src="pics/worker_sad.png">
         <img id="workerIcon" src="pics/worker.png">
         <img id="jarLettuce" src="pics/jar_lettuce.png">
         <img id="jarMeat" src="pics/jar_meat.png">
@@ -37,16 +38,16 @@
             <input id="myNumber" name="numberWorkers" type="number" step="1" min="1" max="10" placeholder="0">
             <br>
             Kunden im Durchschnitt
-            <input id="myNumber" name="myNumber" type="number" step="1" min="1" max="10" placeholder="0">
+            <input type="range" name="kundenDurchschnitt" min="1" max="3" value="1" step="1" />
             <br>
             Kapazitäten von Rohmateriallager
-            <input type="range" name="rohmateriallager" min="1" max="10" value="1" step="1"/>
+            <input type="range" name="rohmateriallager" min="1" max="10" value="1" step="1" />
             <br>
             Kapazitäten von Behältnissen
-            <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1"/>
+            <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1" />
             <br>
             Leerlauf
-            <input type="range" name="leerlauf" min="1" max="5" value="1" step="1"/>
+            <input type="range" name="leerlauf" min="1" max="5" value="1" step="1" />
             <br>
             <button type="button" id="start">Start</button>
             <button type="button">Refresh page</button>
@@ -62,10 +63,9 @@
             <p id="verkaufteGerichte">verkaufte Gerichte: 0</p>
         </div>
         <div class="placeholder">
-            <p>placeholder</p>
+            <p id="placeholder">placeholder</p>
         </div>
     </div>
-
 
     <div class="flexBox">
         <div class="capacity">

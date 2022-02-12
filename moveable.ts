@@ -4,6 +4,8 @@ namespace doenerTrainer {
     position: Vector;
     public velocity: Vector;
     zielposition: Vector;
+    moveBack: boolean = false;
+    mood: string = "happy";
 
     constructor(_zielposition: Vector, _position?: Vector) {
       if (_position) this.position = _position.copy();
@@ -24,11 +26,17 @@ namespace doenerTrainer {
       let offset: Vector = this.velocity.copy();
       // offset.scale(_timeslice);
       this.position.addCustomer(offset);
-      if (this.position.x < 0) {
-        this.velocity.scale(-1);
-      }
-      if (this.position.x > this.zielposition.x) {
-        this.velocity = new Vector(0, 0);
+      // if (this.position.x < 0) {
+      //   this.velocity.scale(-1);
+      // }
+      if (this.moveBack === false) {
+        if (this.position.x > this.zielposition.x) {
+          this.velocity = new Vector(0, 0);
+        }
+      } else if (this.moveBack === true) {
+        if (this.position.x < this.zielposition.x) {
+          this.velocity = new Vector(0, 0);
+        }
       }
     }
 

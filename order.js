@@ -1,13 +1,10 @@
 "use strict";
-var doenerTrainer;
-(function (doenerTrainer) {
-    class order {
-        constructor() {
-        }
-        showOrder() {
-            console.log("order");
-        }
-    }
-    doenerTrainer.order = order;
-})(doenerTrainer || (doenerTrainer = {}));
+// namespace doenerTrainer {
+//     export class Order {
+//       constructor() {}
+//       public showOrder(): void {
+//         console.log("order");
+//       }
+//     }
+//   }
 //# sourceMappingURL=order.js.map

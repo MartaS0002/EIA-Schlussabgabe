@@ -16,7 +16,7 @@ namespace doenerTrainer {
       this.x += _addend.x;
       this.y += _addend.y;
     }
-    
+
     public addCustomer(_addend: Vector): void {
       this.x += _addend.x;
     }

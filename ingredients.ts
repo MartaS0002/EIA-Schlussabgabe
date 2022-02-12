@@ -6,5 +6,4 @@ namespace doenerTrainer {
     onions: number;
     tomatoes: number;
   }
-
 }

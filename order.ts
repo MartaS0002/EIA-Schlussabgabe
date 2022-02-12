@@ -1,10 +1,9 @@
-namespace doenerTrainer {
-    export class order {
-
-        constructor() {
-        }
-        public showOrder(): void {
-            console.log("order");
-        }
-    }
-}
+// namespace doenerTrainer {
+//     export class Order {
+//       constructor() {}
+//       public showOrder(): void {
+//         console.log("order");
+//       }
+//     }
+//   }
+  
