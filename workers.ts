@@ -11,7 +11,6 @@ namespace doenerTrainer {
     }
 
     public draw(): void {
-
       let image: any = document.getElementById("workerIcon");
       crc2.drawImage(image, this.position.x, this.position.y, 60, 60);
     }

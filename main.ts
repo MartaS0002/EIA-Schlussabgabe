@@ -1,11 +1,8 @@
-// CustomersMood wird schlechter ---> fast fertig noch für andere cases machen
-
-// jars nachfüllen braucht Zeit (setTimeout???)
-// jars nachfüllen -> Mitarbeiter geht hin und "fühlt sie nach"
-
-// ingredients (Theke) nachfüllen braucht Zeit (setTimeout???)
+// CustomersMood wird schlechter???
 
 // displayMood Mitarbeiter
+
+// manager return to origin position?????
 
 namespace doenerTrainer {
   window.addEventListener("load", handleLoad);
@@ -321,13 +318,12 @@ namespace doenerTrainer {
   function canvasClicked(_event: MouseEvent): void {
     let x: number = _event.offsetX;
     let y: number = _event.offsetY;
+    let jarNachfuellen: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("jarNachfuellen")
+    );
     //Meat angeklickt
     if (y > 30 && y < 120 && x > 150 && x < 180) {
       if (capacityJars.meat === 0) {
-        ////////////////////////////////////////////////////////// nachfüllen
-        let jarNachfuellen: HTMLButtonElement = <HTMLButtonElement>(
-          document.getElementById("jarNachfuellen")
-        );
         jarNachfuellen.innerHTML = "Meat nachfüllen";
         jarNachfuellen.addEventListener("click", workernachfuellen);
       } else {
@@ -345,6 +341,8 @@ namespace doenerTrainer {
     // Lettuce angeklickt
     if (y > 30 && y < 120 && x > 250 && x < 310) {
       if (capacityJars.lettuce === 0) {
+        jarNachfuellen.innerHTML = "Lettuce nachfüllen";
+        jarNachfuellen.addEventListener("click", workernachfuellen);
       } else {
         capacity.lettuce = capacity.lettuce + 1;
         capacityJars.lettuce = capacityJars.lettuce - 1;
@@ -360,6 +358,8 @@ namespace doenerTrainer {
     //Rooms angeklickt
     if (y > 30 && y < 120 && x > 350 && x < 410) {
       if (capacityJars.mushrooms === 0) {
+        jarNachfuellen.innerHTML = "Mushrooms nachfüllen";
+        jarNachfuellen.addEventListener("click", workernachfuellen);
       } else {
         capacity.mushrooms = capacity.mushrooms + 1;
         capacityJars.mushrooms = capacityJars.mushrooms - 1;
@@ -374,6 +374,8 @@ namespace doenerTrainer {
     }
     // Onion angeklickt
     if (y > 30 && y < 120 && x > 450 && x < 510) {
+      jarNachfuellen.innerHTML = "Onions nachfüllen";
+      jarNachfuellen.addEventListener("click", workernachfuellen);
       if (capacityJars.onions === 0) {
       } else {
         capacity.onions = capacity.onions + 1;
@@ -390,6 +392,8 @@ namespace doenerTrainer {
     // Tomato angeklickt
     if (y > 30 && y < 120 && x > 550 && x < 610) {
       if (capacityJars.tomatoes === 0) {
+        jarNachfuellen.innerHTML = "Tomatoes nachfüllen";
+        jarNachfuellen.addEventListener("click", workernachfuellen);
       } else {
         capacity.tomatoes = capacity.tomatoes + 1;
         capacityJars.tomatoes = capacityJars.tomatoes - 1;
@@ -414,7 +418,7 @@ namespace doenerTrainer {
       document.getElementById("lettuceAmount")
     );
     lettuceAmout.innerHTML = "Lettuce: " + JSON.stringify(capacity.lettuce);
-    
+
     let mushroomsAmout: HTMLParagraphElement = <HTMLParagraphElement>(
       document.getElementById("mushroomsAmount")
     );
@@ -627,7 +631,6 @@ namespace doenerTrainer {
       new Vector(0, 515)
     );
     customerClass.draw();
-    // console.log(customerClass.preferences);
     moveablesCustomer.push(customerClass);
     customer = customerClass;
   }
@@ -658,20 +661,20 @@ namespace doenerTrainer {
   function leerlaufWorkers(): void {
     switch (leerlauf) {
       case 1: {
-        setTimeout(reduceVelocity, 10000);
+        setTimeout(reduceVelocity, 5000);
         break;
       }
       case 2: {
-        setTimeout(reduceVelocity, 20000);
+        setTimeout(reduceVelocity, 10000);
         break;
       }
       case 3: {
-        setTimeout(reduceVelocity, 30000);
+        setTimeout(reduceVelocity, 15000);
 
         break;
       }
       case 4: {
-        setTimeout(reduceVelocity, 40000);
+        setTimeout(reduceVelocity, 50000);
 
         break;
       }
@@ -681,6 +684,7 @@ namespace doenerTrainer {
       }
     }
   }
+
   function reduceVelocity(): void {
     for (let i: number = 0; i < moveablesWorker.length; i++) {
       moveablesWorker[i].velocity = new Vector(
@@ -691,14 +695,36 @@ namespace doenerTrainer {
   }
 
   function workernachfuellen(): void {
-    console.log(capacityJars.meat);
+    let jarNachfuellen: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("jarNachfuellen")
+    );
     if (capacityJars.meat === 0) {
-      console.log(moveablesManager);
       moveablesManager[0].velocity = new Vector(2, 2);
-      moveablesManager[0].zielposition = new Vector(200, 100);
+      moveablesManager[0].zielposition = new Vector(150, 200);
       capacityJars.meat = rohmateriallager;
-      displayCapacity();
+      setTimeout(displayCapacity, 5000);
+    } else if (capacityJars.lettuce === 0) {
+      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].zielposition = new Vector(250, 200);
+      setTimeout(displayCapacity, 5000);
+      capacityJars.lettuce = rohmateriallager;
+    } else if (capacityJars.mushrooms === 0) {
+      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].zielposition = new Vector(350, 200);
+      setTimeout(displayCapacity, 5000);
+      capacityJars.mushrooms = rohmateriallager;
+    } else if (capacityJars.onions === 0) {
+      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].zielposition = new Vector(450, 200);
+      setTimeout(displayCapacity, 5000);
+      capacityJars.onions = rohmateriallager;
+    } else if (capacityJars.tomatoes === 0) {
+      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].zielposition = new Vector(550, 200);
+      setTimeout(displayCapacity, 5000);
+      capacityJars.tomatoes = rohmateriallager;
     }
+    jarNachfuellen.innerHTML = "Nachfüllen";
   }
 
   function disableForm(): void {
