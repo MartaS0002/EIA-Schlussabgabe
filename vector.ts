@@ -7,6 +7,7 @@ namespace doenerTrainer {
       this.x = _x;
       this.y = _y;
     }
+
     public scale(_factor: number): void {
       this.x *= _factor;
       this.y *= _factor;

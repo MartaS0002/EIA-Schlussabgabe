@@ -6,8 +6,10 @@ namespace doenerTrainer {
       super(_position);
       if (_position) this.position = _position;
       else this.position = new Vector(crc2.canvas.width, 380);
-
-      this.velocity = new Vector(Math.random() * 1, Math.random() * 1);
+      this.velocity = new Vector(
+        Math.random() * 1 + 0.2,
+        Math.random() * 1 + 0.2
+      );
       this.zielposition = _zielposition;
       _moveBack = this.moveBack;
     }

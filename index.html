@@ -12,7 +12,8 @@
     <script src="canvasBackground.js"></script>
     <script src="workers.js"></script>
     <script src="customers.js"></script>
-    <!-- <script src="order.js"></script> -->
+    <script src="ingredients.js"></script>
+
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -47,7 +48,7 @@
             <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1" />
             <br>
             Leerlauf
-            <input type="range" name="leerlauf" min="1" max="5" value="1" step="1" />
+            <input type="range" name="leerlauf" min="1" max="3" value="1" step="1" />
             <br>
             <button type="button" id="start">Start</button>
             <button type="button">Refresh page</button>
@@ -55,18 +56,10 @@
     </div>
 
     <div class="info">
-
-        <div class="stunden">
-            <p>Stunden:</p>
-        </div>
         <div class="sold">
             <p id="verkaufteGerichte">verkaufte Gerichte: 0</p>
         </div>
-        <div class="placeholder">
-            <p id="placeholder">placeholder</p>
-        </div>
     </div>
-
     <div class="flexBox">
         <div class="capacity">
             <h2>Behältnisse</h2>

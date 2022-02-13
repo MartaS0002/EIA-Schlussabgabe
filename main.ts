@@ -1,3 +1,5 @@
+// lahmacun brot unter löschen in Affinity
+
 namespace doenerTrainer {
   window.addEventListener("load", handleLoad);
   let imgData: ImageData;
@@ -6,7 +8,7 @@ namespace doenerTrainer {
   let moveablesWorker: Moveable[] = [];
   let moveablesCustomer: Moveable[] = [];
   let moveablesManager: Moveable[] = [];
-  let capacity: Capacity = {
+  export let capacity: Capacity = {
     meat: 1,
     lettuce: 1,
     mushrooms: 1,
@@ -23,7 +25,7 @@ namespace doenerTrainer {
   };
 
   let customer: Customers;
-  let orderAnalyser: Preferences = {
+  export let orderAnalyser: Preferences = {
     meat: false,
     lettuce: false,
     mushrooms: false,
@@ -38,6 +40,8 @@ namespace doenerTrainer {
   let rohmateriallager: number = 1;
   let kundenDurchschnitt: number = 1;
   let timeout: any;
+  let managerVelocityX: number = 2;
+  let managerVelocityY: number = 2;
 
   function handleLoad(_event: Event): void {
     // all handleLoad
@@ -90,127 +94,6 @@ namespace doenerTrainer {
     backgroundClass.displayJars();
   }
 
-  function clickOnMeat(): void {
-    if (capacity.meat === 0) {
-      let meat: HTMLImageElement = <HTMLImageElement>(
-        document.getElementById("ingredientMeat")
-      );
-      meat.addEventListener("click", clickOnMeat);
-      meat.removeEventListener("click", clickOnMeat);
-    } else {
-      capacity.meat = capacity.meat - 1;
-      displayCapacity();
-      let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-        document.getElementById("ingredientsDiv")
-      );
-      let image: HTMLImageElement = <HTMLImageElement>(
-        document.createElement("img")
-      );
-
-      image.setAttribute("id", "orderImage");
-      image.setAttribute("class", "orderImageMeat");
-      image.setAttribute("src", "pics/ingredient_meat.png");
-      ingredientsDiv.appendChild(image);
-      orderAnalyser.meat = true;
-    }
-  }
-
-  function clickOnLettuce(): void {
-    if (capacity.lettuce === 0) {
-      let lettuce: HTMLImageElement = <HTMLImageElement>(
-        document.getElementById("ingredientLettuce")
-      );
-      lettuce.addEventListener("click", clickOnLettuce);
-      lettuce.removeEventListener("click", clickOnLettuce);
-    } else {
-      capacity.lettuce = capacity.lettuce - 1;
-      displayCapacity();
-      let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-        document.getElementById("ingredientsDiv")
-      );
-      let image: HTMLImageElement = <HTMLImageElement>(
-        document.createElement("img")
-      );
-      image.setAttribute("id", "orderImage");
-      image.setAttribute("class", "orderImageLettuce");
-      image.setAttribute("src", "pics/ingredient_lettuce.png");
-      ingredientsDiv.appendChild(image);
-      orderAnalyser.lettuce = true;
-    }
-  }
-
-  function clickOnMushrooms(): void {
-    if (capacity.mushrooms === 0) {
-      let mushrooms: HTMLImageElement = <HTMLImageElement>(
-        document.getElementById("ingredientMushroom")
-      );
-      mushrooms.addEventListener("click", clickOnMushrooms);
-      mushrooms.removeEventListener("click", clickOnMushrooms);
-    } else {
-      capacity.mushrooms = capacity.mushrooms - 1;
-      displayCapacity();
-      let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-        document.getElementById("ingredientsDiv")
-      );
-      let image: HTMLImageElement = <HTMLImageElement>(
-        document.createElement("img")
-      );
-      image.setAttribute("id", "orderImage");
-      image.setAttribute("class", "orderImageMushrooms");
-      image.setAttribute("src", "pics/ingredient_mushrooms.png");
-      ingredientsDiv.appendChild(image);
-      orderAnalyser.mushrooms = true;
-    }
-  }
-
-  function clickOnOnion(): void {
-    if (capacity.onions === 0) {
-      let onions: HTMLImageElement = <HTMLImageElement>(
-        document.getElementById("ingredientOnion")
-      );
-      onions.addEventListener("click", clickOnOnion);
-      onions.removeEventListener("click", clickOnOnion);
-    } else {
-      capacity.onions = capacity.onions - 1;
-      displayCapacity();
-      let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-        document.getElementById("ingredientsDiv")
-      );
-      let image: HTMLImageElement = <HTMLImageElement>(
-        document.createElement("img")
-      );
-      image.setAttribute("id", "orderImage");
-      image.setAttribute("class", "orderImageOnion");
-      image.setAttribute("src", "pics/ingredient_onion.png");
-      ingredientsDiv.appendChild(image);
-      orderAnalyser.onion = true;
-    }
-  }
-
-  function clickOnTomato(): void {
-    if (capacity.tomatoes === 0) {
-      let tomatoes: HTMLImageElement = <HTMLImageElement>(
-        document.getElementById("ingredientTomato")
-      );
-      tomatoes.addEventListener("click", clickOnTomato);
-      tomatoes.removeEventListener("click", clickOnTomato);
-    } else {
-      capacity.tomatoes = capacity.tomatoes - 1;
-      displayCapacity();
-      let ingredientsDiv: HTMLDivElement = <HTMLDivElement>(
-        document.getElementById("ingredientsDiv")
-      );
-      let image: HTMLImageElement = <HTMLImageElement>(
-        document.createElement("img")
-      );
-      image.setAttribute("id", "orderImage");
-      image.setAttribute("class", "orderImageTomato");
-      image.setAttribute("src", "pics/ingredient_tomato.png");
-      ingredientsDiv.appendChild(image);
-      orderAnalyser.tomato = true;
-    }
-  }
-
   function handleChange(_event: Event): void {
     let startButton: HTMLButtonElement = <HTMLButtonElement>(
       document.getElementById("start")
@@ -232,7 +115,6 @@ namespace doenerTrainer {
       capacityJars.mushrooms = parseInt(target.value);
       capacityJars.onions = parseInt(target.value);
       capacityJars.tomatoes = parseInt(target.value);
-
     } else if (target.name === "leerlauf") {
       leerlauf = parseInt(target.value);
     } else if (target.name === "kundenDurchschnitt") {
@@ -248,6 +130,14 @@ namespace doenerTrainer {
   }
 
   function start(): void {
+    setTimeout(function () {
+      alert("halber tag vorbei");
+    },         15000);
+    setTimeout(function () {
+      alert("tag vorbei");
+      window.location.reload();
+    },         250000);
+
     if (numberWorkers > 10) {
       numberWorkers = 10;
     }
@@ -263,7 +153,8 @@ namespace doenerTrainer {
 
       let workerClass: Workers = new Workers(
         new Vector(20, 100),
-        new Vector(20, 100), false
+        new Vector(20, 100),
+        false
       );
       workerClass.velocity = new Vector(2, 2);
       workerClass.draw();
@@ -280,12 +171,20 @@ namespace doenerTrainer {
     disableForm();
   }
 
+  function disableForm(): void {
+    let forms: NodeListOf<HTMLFormElement> = document.querySelectorAll("form");
+    for (let item of forms[0]) {
+      item.setAttribute("disabled", "");
+    }
+  }
+
   function callWorker(): void {
     let randomX: number = Math.floor(Math.random() * 600) + 50;
     let randomY: number = Math.floor(Math.random() * 230) + 170;
     let workerClass: Workers = new Workers(
       new Vector(randomX, randomY),
-      new Vector(0, 0), false
+      new Vector(0, 0),
+      false
     );
     workerClass.draw();
     moveablesWorker.push(workerClass);
@@ -400,89 +299,89 @@ namespace doenerTrainer {
     }
   }
 
-  function displayCapacity(): void {
-    let meatAmount: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("meatAmount")
-    );
-    meatAmount.innerHTML = "Meat: " + JSON.stringify(capacity.meat);
+  export function displayCapacity(): void {
+    // Ingredients
+    let displayIDIngredients: string[] = [
+      "meatAmount",
+      "lettuceAmount",
+      "mushroomsAmount",
+      "onionAmount",
+      "tomatoesAmount"
+    ];
+    let displayIngredientName: string[] = [
+      "Meat",
+      "Lettuce",
+      "Mushrooms",
+      "Onions",
+      "Tomatoes"
+    ];
+    let displayCapacityIngredient: number[] = [
+      capacity.meat,
+      capacity.lettuce,
+      capacity.mushrooms,
+      capacity.onions,
+      capacity.tomatoes
+    ];
 
-    let lettuceAmout: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("lettuceAmount")
-    );
-    lettuceAmout.innerHTML = "Lettuce: " + JSON.stringify(capacity.lettuce);
+    for (let i: number = 0; i < displayIDIngredients.length; i++) {
+      let ingredientAmount: HTMLParagraphElement = <HTMLParagraphElement>(
+        document.getElementById(displayIDIngredients[i])
+      );
+      ingredientAmount.innerHTML =
+        displayIngredientName[i] +
+        ":" +
+        JSON.stringify(displayCapacityIngredient[i]);
+    }
 
-    let mushroomsAmout: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("mushroomsAmount")
-    );
-    mushroomsAmout.innerHTML =
-      "Mushrooms: " + JSON.stringify(capacity.mushrooms);
+    // Jars
+    let displayIDIngredientsJar: string[] = [
+      "meatAmountJars",
+      "lettuceAmountJars",
+      "mushroomsAmountJars",
+      "onionAmountJars",
+      "tomatoesAmountJars"
+    ];
+    let displayCapacityIngredientJar: number[] = [
+      capacityJars.meat,
+      capacityJars.lettuce,
+      capacityJars.mushrooms,
+      capacityJars.onions,
+      capacityJars.tomatoes
+    ];
 
-    let onionsAmout: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("onionAmount")
-    );
-    onionsAmout.innerHTML = "Onions: " + JSON.stringify(capacity.onions);
-
-    let tomatoesAmout: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("tomatoesAmount")
-    );
-    tomatoesAmout.innerHTML = "Tomatoes: " + JSON.stringify(capacity.tomatoes);
-
-    //Jars
-    let meatAmountJars: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("meatAmountJars")
-    );
-    meatAmountJars.innerHTML = "Meat: " + JSON.stringify(capacityJars.meat);
-
-    let lettuceAmoutJars: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("lettuceAmountJars")
-    );
-    lettuceAmoutJars.innerHTML =
-      "Lettuce: " + JSON.stringify(capacityJars.lettuce);
-
-    let mushroomsAmoutJars: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("mushroomsAmountJars")
-    );
-    mushroomsAmoutJars.innerHTML =
-      "Mushrooms: " + JSON.stringify(capacityJars.mushrooms);
-
-    let onionsAmoutJars: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("onionAmountJars")
-    );
-    onionsAmoutJars.innerHTML =
-      "Onions: " + JSON.stringify(capacityJars.onions);
-
-    let tomatoesAmoutJars: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("tomatoesAmountJars")
-    );
-    tomatoesAmoutJars.innerHTML =
-      "Tomatoes: " + JSON.stringify(capacityJars.tomatoes);
+    for (let i: number = 0; i < displayIDIngredientsJar.length; i++) {
+      let ingredientAmountJar: HTMLParagraphElement = <HTMLParagraphElement>(
+        document.getElementById(displayIDIngredientsJar[i])
+      );
+      ingredientAmountJar.innerHTML =
+        displayIngredientName[i] +
+        ":" +
+        JSON.stringify(displayCapacityIngredientJar[i]);
+    }
   }
 
   export function callOrder(): void {
-    let meat: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientMeat")
-    );
-    meat.addEventListener("click", clickOnMeat);
+    let displayIDIngredients: string[] = [
+      "ingredientMeat",
+      "ingredientLettuce",
+      "ingredientMushroom",
+      "ingredientOnion",
+      "ingredientTomato"
+    ];
+    let displayCapacityIngredient = [
+      clickOnMeat,
+      clickOnLettuce,
+      clickOnMushrooms,
+      clickOnOnion,
+      clickOnTomato
+    ];
 
-    let lettuce: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientLettuce")
-    );
-    lettuce.addEventListener("click", clickOnLettuce);
-
-    let mushrooms: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientMushroom")
-    );
-    mushrooms.addEventListener("click", clickOnMushrooms);
-
-    let onion: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientOnion")
-    );
-    onion.addEventListener("click", clickOnOnion);
-
-    let tomato: HTMLImageElement = <HTMLImageElement>(
-      document.getElementById("ingredientTomato")
-    );
-    tomato.addEventListener("click", clickOnTomato);
+    for (let i: number = 0; i < displayIDIngredients.length; i++) {
+      let ingredient: HTMLImageElement = <HTMLImageElement>(
+        document.getElementById(displayIDIngredients[i])
+      );
+      ingredient.addEventListener("click", displayCapacityIngredient[i]);
+    }
 
     let preferenceTrue: string[] = [];
     let preferenceFalse: string[] = [];
@@ -565,7 +464,6 @@ namespace doenerTrainer {
       for (let item of moveablesWorker) {
         item.mood = "happy";
       }
-
     } else {
       let moods: string[] = ["neutral", "mad"];
       let randomMood: number = Math.floor(Math.random() * moods.length);
@@ -623,15 +521,14 @@ namespace doenerTrainer {
   }
 
   function callNewCustomer(): void {
-
     let timeout: number = 0;
     switch (kundenDurchschnitt) {
       case 1: {
-        timeout = 6000;
+        timeout = 10000;
         break;
       }
       case 2: {
-        timeout = 4000;
+        timeout = 5000;
         break;
       }
       case 3: {
@@ -649,7 +546,8 @@ namespace doenerTrainer {
       moveablesManager[0].mood = "sad";
       for (let item of moveablesWorker) {
         item.mood = "sad";
-      }},                10000);
+      }
+    },                   10000);
 
     let customerClass: Customers = new Customers(
       new Vector(600, 0),
@@ -695,16 +593,6 @@ namespace doenerTrainer {
       }
       case 3: {
         setTimeout(reduceVelocity, 15000);
-
-        break;
-      }
-      case 4: {
-        setTimeout(reduceVelocity, 20000);
-
-        break;
-      }
-      case 5: {
-        setTimeout(reduceVelocity, 25000);
         break;
       }
     }
@@ -717,6 +605,8 @@ namespace doenerTrainer {
         Math.random() * 0.5
       );
     }
+    managerVelocityX = 1;
+    managerVelocityY = 1;
   }
 
   function workernachfuellen(): void {
@@ -725,52 +615,52 @@ namespace doenerTrainer {
       document.getElementById("jarNachfuellen")
     );
     if (capacityJars.meat === 0) {
-      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].velocity.x = managerVelocityX;
+      moveablesManager[0].velocity.y = managerVelocityY;
       moveablesManager[0].zielposition = new Vector(150, 200);
-      capacityJars.meat = rohmateriallager;
+      setTimeout(() => (capacityJars.meat = rohmateriallager), 4900);
       setTimeout(displayCapacity, 5000);
       setTimeout(moveManagerBack, 5000);
     } else if (capacityJars.lettuce === 0) {
-      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].velocity.x = managerVelocityX;
+      moveablesManager[0].velocity.y = managerVelocityY;
       moveablesManager[0].zielposition = new Vector(250, 200);
 
-      capacityJars.lettuce = rohmateriallager;
       setTimeout(displayCapacity, 5000);
       setTimeout(moveManagerBack, 6000);
+      setTimeout(() => (capacityJars.lettuce = rohmateriallager), 4900);
     } else if (capacityJars.mushrooms === 0) {
-      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].velocity.x = managerVelocityX;
+      moveablesManager[0].velocity.y = managerVelocityY;
       moveablesManager[0].zielposition = new Vector(350, 200);
       setTimeout(moveManagerBack, 5000);
       setTimeout(displayCapacity, 5000);
-      capacityJars.mushrooms = rohmateriallager;
-
+      setTimeout(() => (capacityJars.mushrooms = rohmateriallager), 4900);
     } else if (capacityJars.onions === 0) {
-      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].velocity.x = managerVelocityX;
+      moveablesManager[0].velocity.y = managerVelocityY;
       moveablesManager[0].zielposition = new Vector(450, 200);
       setTimeout(displayCapacity, 8000);
       setTimeout(moveManagerBack, 8000);
-      capacityJars.onions = rohmateriallager;
-
+      setTimeout(() => (capacityJars.onions = rohmateriallager), 7900);
     } else if (capacityJars.tomatoes === 0) {
-      moveablesManager[0].velocity = new Vector(2, 2);
+      moveablesManager[0].velocity.x = managerVelocityX;
+      moveablesManager[0].velocity.y = managerVelocityY;
       moveablesManager[0].zielposition = new Vector(550, 200);
       setTimeout(displayCapacity, 9000);
       setTimeout(moveManagerBack, 9000);
-      capacityJars.tomatoes = rohmateriallager;
+      setTimeout(() => (capacityJars.tomatoes = rohmateriallager), 8000);
     }
 
     jarNachfuellen.innerHTML = "Nachfüllen";
   }
 
-  function disableForm(): void {
-    let forms: NodeListOf<HTMLFormElement> = document.querySelectorAll("form");
-    for (let item of forms[0]) {
-      item.setAttribute("disabled", "");
-    }
-  }
   function moveManagerBack(): void {
     moveablesManager[0].moveBack = true;
-    moveablesManager[0].velocity = new Vector(-2, -2);
+    moveablesManager[0].velocity = new Vector(
+      -managerVelocityX,
+      -managerVelocityY
+    );
     moveablesManager[0].zielposition = new Vector(10, 10);
   }
 }
