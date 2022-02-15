@@ -1,5 +1,3 @@
-// lahmacun brot unter löschen in Affinity
-
 namespace doenerTrainer {
   window.addEventListener("load", handleLoad);
   let imgData: ImageData;
@@ -44,8 +42,8 @@ namespace doenerTrainer {
   let managerVelocityX: number = 2;
   let managerVelocityY: number = 2;
 
+  // handleLoad
   function handleLoad(): void {
-    // all handleLoad
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>(
       document.querySelector("canvas")
     );

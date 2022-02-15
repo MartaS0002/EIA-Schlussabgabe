@@ -1,5 +1,4 @@
 "use strict";
-// lahmacun brot unter löschen in Affinity
 var doenerTrainer;
 (function (doenerTrainer) {
     window.addEventListener("load", handleLoad);
@@ -38,8 +37,8 @@ var doenerTrainer;
     let timeout;
     let managerVelocityX = 2;
     let managerVelocityY = 2;
+    // handleLoad
     function handleLoad() {
-        // all handleLoad
         let canvas = (document.querySelector("canvas"));
         if (!canvas)
             return;
