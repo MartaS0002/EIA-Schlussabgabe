@@ -103,11 +103,11 @@ var doenerTrainer;
     function start() {
         setTimeout(function () {
             alert("the day is almost over");
-        }, 60000);
+        }, 50000);
         setTimeout(function () {
             alert("the day is over");
             window.location.reload();
-        }, 1200000);
+        }, 90000);
         if (numberWorkers > 10) {
             numberWorkers = 10;
         }
