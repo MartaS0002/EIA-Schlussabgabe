@@ -181,7 +181,7 @@ var doenerTrainer;
         // Lettuce click
         if (y > 30 && y < 120 && x > 250 && x < 310) {
             if (capacityJars.lettuce === 0) {
-                jarRefill.innerHTML = "Lettuce refill";
+                jarRefill.innerHTML = "lettuce refill";
                 jarRefill.addEventListener("click", managerRefill);
             }
             else {
@@ -197,7 +197,7 @@ var doenerTrainer;
         //Rooms click
         if (y > 30 && y < 120 && x > 350 && x < 410) {
             if (capacityJars.mushrooms === 0) {
-                jarRefill.innerHTML = "Mushrooms refill";
+                jarRefill.innerHTML = "mushrooms refill";
                 jarRefill.addEventListener("click", managerRefill);
             }
             else {
@@ -213,7 +213,7 @@ var doenerTrainer;
         // Onion click
         if (y > 30 && y < 120 && x > 450 && x < 510) {
             if (capacityJars.onions === 0) {
-                jarRefill.innerHTML = "Onions refill";
+                jarRefill.innerHTML = "onions refill";
                 jarRefill.addEventListener("click", managerRefill);
             }
             else {
@@ -229,7 +229,7 @@ var doenerTrainer;
         // Tomato click
         if (y > 30 && y < 120 && x > 550 && x < 610) {
             if (capacityJars.tomatoes === 0) {
-                jarRefill.innerHTML = "Tomatoes refill";
+                jarRefill.innerHTML = "tomatoes refill";
                 jarRefill.addEventListener("click", managerRefill);
             }
             else {
@@ -501,7 +501,7 @@ var doenerTrainer;
             moveablesManager[0].velocity.x = managerVelocityX;
             moveablesManager[0].velocity.y = managerVelocityY;
             moveablesManager[0].goalPosition = new doenerTrainer.Vector(150, 200);
-            setTimeout(() => (capacityJars.meat = warehouse), 4900);
+            setTimeout(() => (capacityJars.meat = warehouse), 6000);
             setTimeout(displayCapacity, 5000);
             setTimeout(moveManagerBack, 5000);
         }
@@ -509,17 +509,17 @@ var doenerTrainer;
             moveablesManager[0].velocity.x = managerVelocityX;
             moveablesManager[0].velocity.y = managerVelocityY;
             moveablesManager[0].goalPosition = new doenerTrainer.Vector(250, 200);
-            setTimeout(displayCapacity, 5000);
+            setTimeout(displayCapacity, 6000);
             setTimeout(moveManagerBack, 6000);
-            setTimeout(() => (capacityJars.lettuce = warehouse), 4900);
+            setTimeout(() => (capacityJars.lettuce = warehouse), 6000);
         }
         else if (capacityJars.mushrooms === 0) {
             moveablesManager[0].velocity.x = managerVelocityX;
             moveablesManager[0].velocity.y = managerVelocityY;
             moveablesManager[0].goalPosition = new doenerTrainer.Vector(350, 200);
-            setTimeout(moveManagerBack, 5000);
-            setTimeout(displayCapacity, 5000);
-            setTimeout(() => (capacityJars.mushrooms = warehouse), 4900);
+            setTimeout(moveManagerBack, 7000);
+            setTimeout(displayCapacity, 7000);
+            setTimeout(() => (capacityJars.mushrooms = warehouse), 6000);
         }
         else if (capacityJars.onions === 0) {
             moveablesManager[0].velocity.x = managerVelocityX;
@@ -527,7 +527,7 @@ var doenerTrainer;
             moveablesManager[0].goalPosition = new doenerTrainer.Vector(450, 200);
             setTimeout(displayCapacity, 8000);
             setTimeout(moveManagerBack, 8000);
-            setTimeout(() => (capacityJars.onions = warehouse), 7900);
+            setTimeout(() => (capacityJars.onions = warehouse), 6000);
         }
         else if (capacityJars.tomatoes === 0) {
             moveablesManager[0].velocity.x = managerVelocityX;
@@ -535,7 +535,7 @@ var doenerTrainer;
             moveablesManager[0].goalPosition = new doenerTrainer.Vector(550, 200);
             setTimeout(displayCapacity, 9000);
             setTimeout(moveManagerBack, 9000);
-            setTimeout(() => (capacityJars.tomatoes = warehouse), 8000);
+            setTimeout(() => (capacityJars.tomatoes = warehouse), 6000);
         }
         jarRefill.innerHTML = "refill";
     }

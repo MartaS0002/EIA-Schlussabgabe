@@ -115,8 +115,8 @@ button:disabled {
   margin-left: 20px;
 }
 
-.refreshButton {
-  padding: 1px 5px;
+#start {
+  padding: 15px 35px;
 }
 
 .capacity {
