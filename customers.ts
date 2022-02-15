@@ -15,17 +15,17 @@ namespace doenerTrainer {
       lettuce: Math.random() < 0.5,
       mushrooms: Math.random() < 0.5,
       onion: Math.random() < 0.5,
-      tomato: Math.random() < 0.5
+      tomato: Math.random() < 0.5,
     };
 
-    constructor(_zielposition: Vector, _position: Vector) {
-      super(_position);
-      if (_position) this.position = _position;
-      else this.position = new Vector(crc2.canvas.width, 380);
+    constructor(_goalPosition: Vector, _position: Vector) {
+      super(_position, _goalPosition);
+      this.position = _position;
 
       this.velocity = new Vector(6, 0);
-      this.zielposition = _zielposition;
+      this.goalPosition = _goalPosition;
     }
+
     public draw(): void {
       let image: any = document.getElementById("happy");
       if (this.mood === "happy") {

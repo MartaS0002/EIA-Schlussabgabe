@@ -2,15 +2,11 @@
 var doenerTrainer;
 (function (doenerTrainer) {
     class Moveable {
-        constructor(_zielposition, _position) {
-            this.angekommen = false;
+        constructor(_goalPosition, _position) {
+            this.arrived = false;
             this.moveBack = false;
-            this.mood = "happy";
-            if (_position)
-                this.position = _position.copy();
-            else
-                this.position = new doenerTrainer.Vector(0, 0);
-            this.zielposition = _zielposition;
+            this.position = new doenerTrainer.Vector(0, 0);
+            this.goalPosition = _goalPosition;
         }
         move(_timeslice) {
             let offset = this.velocity.copy();
@@ -28,12 +24,12 @@ var doenerTrainer;
             let offset = this.velocity.copy();
             this.position.addCustomer(offset);
             if (this.moveBack === false) {
-                if (this.position.x > this.zielposition.x) {
+                if (this.position.x > this.goalPosition.x) {
                     this.velocity = new doenerTrainer.Vector(0, 0);
                 }
             }
             else if (this.moveBack === true) {
-                if (this.position.x < this.zielposition.x) {
+                if (this.position.x < this.goalPosition.x) {
                     this.velocity = new doenerTrainer.Vector(0, 0);
                 }
             }
@@ -44,12 +40,12 @@ var doenerTrainer;
             if (this.position.x < 0) {
                 this.velocity.scale(-1);
             }
-            if (this.position.x > this.zielposition.x) {
+            if (this.position.x > this.goalPosition.x) {
                 this.velocity = new doenerTrainer.Vector(0, 0);
-                if (this.angekommen === false) {
+                if (this.arrived === false) {
                     doenerTrainer.callOrder();
                 }
-                this.angekommen = true;
+                this.arrived = true;
             }
         }
     }

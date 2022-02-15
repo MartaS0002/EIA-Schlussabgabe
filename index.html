@@ -13,7 +13,6 @@
     <script src="workers.js"></script>
     <script src="customers.js"></script>
     <script src="ingredients.js"></script>
-
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -35,47 +34,47 @@
     <div class="settings">
         <h2>Döner-Settings</h2>
         <form>
-            Anzahl der Mitarbeiter
+            numbers of workers
             <input id="myNumber" name="numberWorkers" type="number" step="1" min="1" max="10" placeholder="0">
             <br>
-            Kunden im Durchschnitt
-            <input type="range" name="kundenDurchschnitt" min="1" max="3" value="1" step="1" />
+            customers per hour
+            <input type="range" name="customersPerHour" min="1" max="3" value="1" step="1" />
             <br>
-            Kapazitäten von Rohmateriallager
-            <input type="range" name="rohmateriallager" min="1" max="10" value="1" step="1" />
+            capacity jars
+            <input type="range" name="warehouse" min="1" max="10" value="1" step="1" />
             <br>
-            Kapazitäten von Behältnissen
-            <input type="range" name="behaeltnisse" min="1" max="10" value="1" step="1" />
+            capacity containers
+            <input type="range" name="containers" min="1" max="10" value="1" step="1" />
             <br>
-            Leerlauf
-            <input type="range" name="leerlauf" min="1" max="3" value="1" step="1" />
+            slack workers
+            <input type="range" name="slack" min="1" max="3" value="1" step="1" />
             <br>
-            <button type="button" id="start">Start</button>
-            <button type="button">Refresh page</button>
+            <button type="button" id="start">start</button>
         </form>
     </div>
 
     <div class="info">
+        <button class="refreshButton" type="button">refresh page</button>
         <div class="sold">
-            <p id="verkaufteGerichte">verkaufte Gerichte: 0</p>
+            <p id="soldFood">sold: 0</p>
         </div>
     </div>
     <div class="flexBox">
         <div class="capacity">
-            <h2>Behältnisse</h2>
+            <h2>containers</h2>
             <p id="meatAmount"></p>
             <p id="lettuceAmount"></p>
             <p id="mushroomsAmount"></p>
             <p id="onionAmount"></p>
             <p id="tomatoesAmount"></p>
-            <h2>Jars</h2>
+            <h2>jars</h2>
             <p id="meatAmountJars"></p>
             <p id="lettuceAmountJars"></p>
             <p id="mushroomsAmountJars"></p>
             <p id="onionAmountJars"></p>
             <p id="tomatoesAmountJars"></p>
-            <div class="jarNachfuellen">
-                <button id="jarNachfuellen">Nachfüllen</button>
+            <div class="jarRefill">
+                <button id="jarRefill">refill</button>
             </div>
         </div>
         <div class="counterDiv">
@@ -92,18 +91,18 @@
             </canvas>
         </div>
         <div class="order" id="order">
-            <h2>Order</h2>
+            <h2>order</h2>
             <div class="orderList" id="orderList">
-                <p id="ichWill"></p>
-                <p id="ichWillNicht"></p>
+                <p id="iWant"></p>
+                <p id="iDontWant"></p>
             </div>
             <div class="breadAndIngredients" id="breadAndIngredients">
                 <div id="ingredientsDiv"></div>
                 <div id="breadDiv"></div>
             </div>
             <div class="btn-group">
-                <button class="finishButton" id="finishButton">Finish Order</button>
-                <button id="deleteIngredientButton">Delete</button>
+                <button class="finishButton" id="finishButton">finish order</button>
+                <button id="deleteIngredientButton">delete</button>
             </div>
         </div>
 

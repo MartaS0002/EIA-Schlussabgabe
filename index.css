@@ -115,6 +115,10 @@ button:disabled {
   margin-left: 20px;
 }
 
+.refreshButton {
+  padding: 1px 5px;
+}
+
 .capacity {
   position: relative;
   text-align: center;
@@ -124,6 +128,7 @@ button:disabled {
   border-radius: 4px;
   border-style: solid;
   border-color: black;
+  font-size: 18px;
 }
 
 .counterDiv {

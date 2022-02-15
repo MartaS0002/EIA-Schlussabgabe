@@ -8,6 +8,7 @@ namespace doenerTrainer {
   let moveablesWorker: Moveable[] = [];
   let moveablesCustomer: Moveable[] = [];
   let moveablesManager: Moveable[] = [];
+
   export let capacity: Capacity = {
     meat: 1,
     lettuce: 1,
@@ -35,15 +36,15 @@ namespace doenerTrainer {
 
   let numberWorkers: number = 0;
   let clickStart: number = 0;
-  let verkaufteGerichte: number = 0;
-  let leerlauf: number = 1;
-  let rohmateriallager: number = 1;
-  let kundenDurchschnitt: number = 1;
+  let soldFood: number = 0;
+  let slack: number = 1;
+  let warehouse: number = 1;
+  let customersPerHour: number = 1;
   let timeout: any;
   let managerVelocityX: number = 2;
   let managerVelocityY: number = 2;
 
-  function handleLoad(_event: Event): void {
+  function handleLoad(): void {
     // all handleLoad
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>(
       document.querySelector("canvas")
@@ -102,23 +103,23 @@ namespace doenerTrainer {
     let target: HTMLInputElement = <HTMLInputElement>_event.target;
     if (target.name === "numberWorkers") {
       numberWorkers = parseInt(target.value);
-    } else if (target.name === "behaeltnisse") {
+    } else if (target.name === "containers") {
       capacity.meat = parseInt(target.value);
       capacity.lettuce = parseInt(target.value);
       capacity.mushrooms = parseInt(target.value);
       capacity.onions = parseInt(target.value);
       capacity.tomatoes = parseInt(target.value);
-    } else if (target.name === "rohmateriallager") {
-      rohmateriallager = parseInt(target.value);
+    } else if (target.name === "warehouse") {
+      warehouse = parseInt(target.value);
       capacityJars.meat = parseInt(target.value);
       capacityJars.lettuce = parseInt(target.value);
       capacityJars.mushrooms = parseInt(target.value);
       capacityJars.onions = parseInt(target.value);
       capacityJars.tomatoes = parseInt(target.value);
-    } else if (target.name === "leerlauf") {
-      leerlauf = parseInt(target.value);
-    } else if (target.name === "kundenDurchschnitt") {
-      kundenDurchschnitt = parseInt(target.value);
+    } else if (target.name === "slack") {
+      slack = parseInt(target.value);
+    } else if (target.name === "customersPerHour") {
+      customersPerHour = parseInt(target.value);
     }
     if (numberWorkers > 0) {
       startButton.disabled = false;
@@ -131,16 +132,17 @@ namespace doenerTrainer {
 
   function start(): void {
     setTimeout(function () {
-      alert("halber tag vorbei");
-    },         15000);
+      alert("the day is almost over");
+    },         60000);
     setTimeout(function () {
-      alert("tag vorbei");
+      alert("the day is over");
       window.location.reload();
-    },         250000);
+    },         1200000);
 
     if (numberWorkers > 10) {
       numberWorkers = 10;
     }
+
     if (clickStart === 0) {
       for (let i: number = 0; i < numberWorkers; i++) {
         callWorker();
@@ -160,6 +162,7 @@ namespace doenerTrainer {
       workerClass.draw();
       moveablesManager.push(workerClass);
     }
+
     callCustomers();
     displayCapacity();
 
@@ -167,7 +170,7 @@ namespace doenerTrainer {
       document.querySelector("canvas")
     );
     canvas.addEventListener("click", canvasClicked);
-    leerlaufWorkers();
+    slackWorkers();
     disableForm();
   }
 
@@ -209,18 +212,19 @@ namespace doenerTrainer {
   function canvasClicked(_event: MouseEvent): void {
     let x: number = _event.offsetX;
     let y: number = _event.offsetY;
-    let jarNachfuellen: HTMLButtonElement = <HTMLButtonElement>(
-      document.getElementById("jarNachfuellen")
+    let jarRefill: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("jarRefill")
     );
-    //Meat angeklickt
+    //Meat click
     if (y > 30 && y < 120 && x > 150 && x < 180) {
       if (capacityJars.meat === 0) {
-        jarNachfuellen.innerHTML = "Meat nachfüllen";
-        jarNachfuellen.addEventListener("click", workernachfuellen);
+        jarRefill.innerHTML = "meat refill";
+        jarRefill.addEventListener("click", managerRefill);
       } else {
         capacity.meat = capacity.meat + 1;
         capacityJars.meat = capacityJars.meat - 1;
         displayCapacity();
+        
         if (capacity.meat === 1) {
           let meat: HTMLImageElement = <HTMLImageElement>(
             document.getElementById("ingredientMeat")
@@ -229,11 +233,11 @@ namespace doenerTrainer {
         }
       }
     }
-    // Lettuce angeklickt
+    // Lettuce click
     if (y > 30 && y < 120 && x > 250 && x < 310) {
       if (capacityJars.lettuce === 0) {
-        jarNachfuellen.innerHTML = "Lettuce nachfüllen";
-        jarNachfuellen.addEventListener("click", workernachfuellen);
+        jarRefill.innerHTML = "Lettuce refill";
+        jarRefill.addEventListener("click", managerRefill);
       } else {
         capacity.lettuce = capacity.lettuce + 1;
         capacityJars.lettuce = capacityJars.lettuce - 1;
@@ -246,11 +250,11 @@ namespace doenerTrainer {
         }
       }
     }
-    //Rooms angeklickt
+    //Rooms click
     if (y > 30 && y < 120 && x > 350 && x < 410) {
       if (capacityJars.mushrooms === 0) {
-        jarNachfuellen.innerHTML = "Mushrooms nachfüllen";
-        jarNachfuellen.addEventListener("click", workernachfuellen);
+        jarRefill.innerHTML = "Mushrooms refill";
+        jarRefill.addEventListener("click", managerRefill);
       } else {
         capacity.mushrooms = capacity.mushrooms + 1;
         capacityJars.mushrooms = capacityJars.mushrooms - 1;
@@ -263,11 +267,11 @@ namespace doenerTrainer {
         }
       }
     }
-    // Onion angeklickt
+    // Onion click
     if (y > 30 && y < 120 && x > 450 && x < 510) {
       if (capacityJars.onions === 0) {
-        jarNachfuellen.innerHTML = "Onions nachfüllen";
-        jarNachfuellen.addEventListener("click", workernachfuellen);
+        jarRefill.innerHTML = "Onions refill";
+        jarRefill.addEventListener("click", managerRefill);
       } else {
         capacity.onions = capacity.onions + 1;
         capacityJars.onions = capacityJars.onions - 1;
@@ -280,11 +284,11 @@ namespace doenerTrainer {
         }
       }
     }
-    // Tomato angeklickt
+    // Tomato click
     if (y > 30 && y < 120 && x > 550 && x < 610) {
       if (capacityJars.tomatoes === 0) {
-        jarNachfuellen.innerHTML = "Tomatoes nachfüllen";
-        jarNachfuellen.addEventListener("click", workernachfuellen);
+        jarRefill.innerHTML = "Tomatoes refill";
+        jarRefill.addEventListener("click", managerRefill);
       } else {
         capacity.tomatoes = capacity.tomatoes + 1;
         capacityJars.tomatoes = capacityJars.tomatoes - 1;
@@ -308,6 +312,7 @@ namespace doenerTrainer {
       "onionAmount",
       "tomatoesAmount"
     ];
+
     let displayIngredientName: string[] = [
       "Meat",
       "Lettuce",
@@ -315,6 +320,7 @@ namespace doenerTrainer {
       "Onions",
       "Tomatoes"
     ];
+
     let displayCapacityIngredient: number[] = [
       capacity.meat,
       capacity.lettuce,
@@ -427,15 +433,15 @@ namespace doenerTrainer {
     let breadDiv: HTMLDivElement = <HTMLDivElement>(
       document.getElementById("breadDiv")
     );
-    let ichWill: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("ichWill")
+    let iWant: HTMLParagraphElement = <HTMLParagraphElement>(
+      document.getElementById("iWant")
     );
-    let ichWillNicht: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("ichWillNicht")
+    let iDontWant: HTMLParagraphElement = <HTMLParagraphElement>(
+      document.getElementById("iDontWant")
     );
 
-    ichWill.innerHTML = "Ich will: " + "</br>" + preferenceTrue;
-    ichWillNicht.innerHTML = "Ich will nicht: " + "</br>" + preferenceFalse;
+    iWant.innerHTML = "I want: " + "</br>" + preferenceTrue;
+    iDontWant.innerHTML = "I don't want: " + "</br>" + preferenceFalse;
 
     let imageBread: HTMLImageElement = <HTMLImageElement>(
       document.createElement("img")
@@ -508,21 +514,21 @@ namespace doenerTrainer {
     };
     moveablesCustomer = [];
     customer.velocity = new Vector(6, 0);
-    customer.zielposition.x = 10000;
+    customer.goalPosition.x = 10000;
     moveablesCustomer.push(customer);
-    verkaufteGerichte++;
-    let verkaufteGerichteText: HTMLParagraphElement = <HTMLParagraphElement>(
-      document.getElementById("verkaufteGerichte")
+    soldFood++;
+    let soldFoodText: HTMLParagraphElement = <HTMLParagraphElement>(
+      document.getElementById("soldFood")
     );
 
-    verkaufteGerichteText.innerHTML =
-      "verkaufte Gerichte: " + verkaufteGerichte;
+    soldFoodText.innerHTML =
+      "sold: " + soldFood;
     callNewCustomer();
   }
 
   function callNewCustomer(): void {
     let timeout: number = 0;
-    switch (kundenDurchschnitt) {
+    switch (customersPerHour) {
       case 1: {
         timeout = 10000;
         break;
@@ -547,7 +553,7 @@ namespace doenerTrainer {
       for (let item of moveablesWorker) {
         item.mood = "sad";
       }
-    },                   10000);
+    },                   20000);
 
     let customerClass: Customers = new Customers(
       new Vector(600, 0),
@@ -565,7 +571,6 @@ namespace doenerTrainer {
     let orderImage: HTMLImageElement = <HTMLImageElement>(
       document.getElementById("orderImage")
     );
-
     if (orderImage.getAttribute("class") === "orderImageMeat") {
       orderAnalyser.meat = false;
     } else if (orderImage.getAttribute("class") === "orderImageLettuce") {
@@ -581,18 +586,18 @@ namespace doenerTrainer {
     ingredientsDiv.removeChild(orderImage);
   }
 
-  function leerlaufWorkers(): void {
-    switch (leerlauf) {
+  function slackWorkers(): void {
+    switch (slack) {
       case 1: {
-        setTimeout(reduceVelocity, 5000);
+        setTimeout(reduceVelocity, 23000);
         break;
       }
       case 2: {
-        setTimeout(reduceVelocity, 10000);
+        setTimeout(reduceVelocity, 45000);
         break;
       }
       case 3: {
-        setTimeout(reduceVelocity, 15000);
+        setTimeout(reduceVelocity, 55000);
         break;
       }
     }
@@ -609,50 +614,54 @@ namespace doenerTrainer {
     managerVelocityY = 1;
   }
 
-  function workernachfuellen(): void {
+  function managerRefill(): void {
     moveablesManager[0].moveBack = false;
-    let jarNachfuellen: HTMLButtonElement = <HTMLButtonElement>(
-      document.getElementById("jarNachfuellen")
+    let jarRefill: HTMLButtonElement = <HTMLButtonElement>(
+      document.getElementById("jarRefill")
     );
+
     if (capacityJars.meat === 0) {
       moveablesManager[0].velocity.x = managerVelocityX;
       moveablesManager[0].velocity.y = managerVelocityY;
-      moveablesManager[0].zielposition = new Vector(150, 200);
-      setTimeout(() => (capacityJars.meat = rohmateriallager), 4900);
+      moveablesManager[0].goalPosition = new Vector(150, 200);
+      setTimeout(() => (capacityJars.meat = warehouse), 4900);
       setTimeout(displayCapacity, 5000);
       setTimeout(moveManagerBack, 5000);
+
     } else if (capacityJars.lettuce === 0) {
       moveablesManager[0].velocity.x = managerVelocityX;
       moveablesManager[0].velocity.y = managerVelocityY;
-      moveablesManager[0].zielposition = new Vector(250, 200);
-
+      moveablesManager[0].goalPosition = new Vector(250, 200);
       setTimeout(displayCapacity, 5000);
       setTimeout(moveManagerBack, 6000);
-      setTimeout(() => (capacityJars.lettuce = rohmateriallager), 4900);
+      setTimeout(() => (capacityJars.lettuce = warehouse), 4900);
+      
     } else if (capacityJars.mushrooms === 0) {
       moveablesManager[0].velocity.x = managerVelocityX;
       moveablesManager[0].velocity.y = managerVelocityY;
-      moveablesManager[0].zielposition = new Vector(350, 200);
+      moveablesManager[0].goalPosition = new Vector(350, 200);
       setTimeout(moveManagerBack, 5000);
       setTimeout(displayCapacity, 5000);
-      setTimeout(() => (capacityJars.mushrooms = rohmateriallager), 4900);
+      setTimeout(() => (capacityJars.mushrooms = warehouse), 4900);
+
     } else if (capacityJars.onions === 0) {
       moveablesManager[0].velocity.x = managerVelocityX;
       moveablesManager[0].velocity.y = managerVelocityY;
-      moveablesManager[0].zielposition = new Vector(450, 200);
+      moveablesManager[0].goalPosition = new Vector(450, 200);
       setTimeout(displayCapacity, 8000);
       setTimeout(moveManagerBack, 8000);
-      setTimeout(() => (capacityJars.onions = rohmateriallager), 7900);
+      setTimeout(() => (capacityJars.onions = warehouse), 7900);
+      
     } else if (capacityJars.tomatoes === 0) {
       moveablesManager[0].velocity.x = managerVelocityX;
       moveablesManager[0].velocity.y = managerVelocityY;
-      moveablesManager[0].zielposition = new Vector(550, 200);
+      moveablesManager[0].goalPosition = new Vector(550, 200);
       setTimeout(displayCapacity, 9000);
       setTimeout(moveManagerBack, 9000);
-      setTimeout(() => (capacityJars.tomatoes = rohmateriallager), 8000);
+      setTimeout(() => (capacityJars.tomatoes = warehouse), 8000);
     }
 
-    jarNachfuellen.innerHTML = "Nachfüllen";
+    jarRefill.innerHTML = "refill";
   }
 
   function moveManagerBack(): void {
@@ -661,6 +670,6 @@ namespace doenerTrainer {
       -managerVelocityX,
       -managerVelocityY
     );
-    moveablesManager[0].zielposition = new Vector(10, 10);
+    moveablesManager[0].goalPosition = new Vector(10, 10);
   }
 }

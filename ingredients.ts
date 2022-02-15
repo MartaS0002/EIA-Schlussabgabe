@@ -8,7 +8,6 @@ namespace doenerTrainer {
   }
 
   export function clickOnMeat(): void {
-    console.log("hey");
     if (capacity.meat === 0) {
       let meat: HTMLImageElement = <HTMLImageElement>(
         document.getElementById("ingredientMeat")
